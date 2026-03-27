@@ -1,0 +1,4 @@
+interface:
+  display_name: "HIPAA Delivery"
+  short_description: "Review healthcare delivery controls"
+  default_prompt: "Use $health-hipaa-secure-delivery to review a healthcare software delivery plan for privacy and security risks."

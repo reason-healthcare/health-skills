@@ -1,0 +1,4 @@
+interface:
+  display_name: "Your Skill Name"
+  short_description: "Healthcare skill starter"
+  default_prompt: "Use $health-your-skill-name to help with a healthcare software or digital health product task."

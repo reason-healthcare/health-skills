@@ -1,0 +1,4 @@
+interface:
+  display_name: "FHIR API Design"
+  short_description: "Design implementable health APIs"
+  default_prompt: "Use $health-fhir-api-design to design an interoperable healthcare API with implementation-aware trade-offs."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Healthcare Discovery"
+  short_description: "Shape healthcare product direction"
+  default_prompt: "Use $health-product-discovery to frame a healthcare software or digital health product decision."
