@@ -1,4 +1,4 @@
 interface:
-  display_name: "FHIR API Design"
-  short_description: "Design interoperable health APIs"
-  default_prompt: "Use $health-fhir-api-design to design a healthcare API or data flow with FHIR-aware patterns."
+  display_name: "FHIR R4 API Design"
+  short_description: "Design FHIR R4 search queries, operations, validation, and workflow"
+  default_prompt: "Use $health-fhir-api-design to design FHIR R4 API interactions. Describe your requirements and the skill will recommend search queries, operations, validation strategy, and custom SearchParameter or OperationDefinition resources as needed."

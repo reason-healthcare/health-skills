@@ -14,7 +14,7 @@ Use this skill to design interoperable healthcare APIs and data flows with FHIR-
 
 ### `health-hipaa-secure-delivery`
 
-Use this skill to review healthcare software delivery choices for privacy, security, access control, and operational safeguards.
+Use this skill to inspect healthcare code and delivery systems for privacy and security gaps and produce a report-only HIPAA, PHI, and PII audit.
 
 ## Install
 
