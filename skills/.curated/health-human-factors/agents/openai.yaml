@@ -1,0 +1,4 @@
+interface:
+  display_name: "EHR Design Review"
+  short_description: "Review EHR interfaces against healthcare design standards"
+  default_prompt: "Use $health-human-factors to inspect healthcare or EHR software screens and produce a report assessing patient safety, usability, accessibility, and data clarity against established healthcare design standards."

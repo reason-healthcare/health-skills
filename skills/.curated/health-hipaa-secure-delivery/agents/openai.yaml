@@ -1,4 +1,0 @@
-interface:
-  display_name: "HIPAA Code Audit"
-  short_description: "Report HIPAA, PHI, and PII gaps in code"
-  default_prompt: "Use $health-hipaa-secure-delivery to inspect a healthcare codebase or delivery system and produce a report-only HIPAA, PHI, and PII audit without changing code."
