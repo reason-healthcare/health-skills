@@ -1,0 +1,39 @@
+name: Skill Quality Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate skill library
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate skill structure
+        run: python scripts/validate_skill_library.py
+
+      - name: Verify skills.sh compatibility
+        run: python scripts/verify_skills_sh_compat.py
+
+  security-audit:
+    name: Security audit (Gen / Snyk approximation)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run security audit
+        run: python scripts/audit_skill_security.py
