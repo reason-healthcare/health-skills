@@ -1,6 +1,6 @@
 # Reason: Healthcare Tech Skills
 
-Shared AI skills for building healthcare technology software and digital health products.
+Shared AI skills for building healthcare technology software and digital health products. These skills are created by [Vermonster](https://vermonster.com), a software studio with over 15 years of experience building healthcare technology systems.
 
 ## Install
 
