@@ -48,9 +48,34 @@ Use this skill to inspect healthcare software and produce an audit report of cod
 - `references/control-areas.md`: baseline HIPAA, PHI, and PII audit criteria with sample findings and source links grounded in HHS and NIST guidance
 - `examples/example-report.md`: example audit report showing expected output shape, finding format, and coverage matrix
 
+## Invocation Modes
+
+### Standalone (default)
+
+When invoked directly by a user or without the phrase "scoped review," operate normally: confirm scope interactively, map sensitive-data paths, review against control areas, and produce the full report described in the Output Contract below.
+
+### Scoped
+
+When invoked with the phrase "scoped review" and a pre-determined list of file paths, operate in scoped mode:
+
+- **Input**: a list of file paths to review. Scope is pre-determined — do not ask for confirmation.
+- **Behavior**: skip interactive scope confirmation. Skip executive summary, coverage matrix, and open questions generation. Review only the provided files against the control areas.
+- **Output**: return a findings-only list. Each finding uses this format:
+
+  ```
+  ### [H-{n}] {title}
+  - Severity: critical | high | medium | low
+  - Category: {control area from control-areas.md}
+  - File: {path}:{line}
+  - Detail: {what was observed and what evidence supports the finding}
+  - Guideline: {HIPAA section, HHS guidance, or NIST reference}
+  ```
+
+  If no findings are discovered, return a single line: "No HIPAA findings for the provided files."
+
 ## Output Contract
 
-Return an audit report with:
+When operating in **standalone** mode, return an audit report with:
 
 - executive summary
 - in-scope components and sensitive-data assumptions

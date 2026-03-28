@@ -65,9 +65,34 @@ Each category maps to a section of the style guide reference.
 - `references/style-guide.md`: full Healthcare Software Design Style Guide with criteria, examples, and source standards
 - `examples/example-report.md`: example review report showing expected output shape, finding format, and coverage matrix
 
+## Invocation Modes
+
+### Standalone (default)
+
+When invoked directly by a user or without the phrase "scoped review," operate normally: confirm scope interactively, load references, walk review categories, and produce the full report described in the Output Contract below.
+
+### Scoped
+
+When invoked with the phrase "scoped review" and a pre-determined list of file paths, operate in scoped mode:
+
+- **Input**: a list of file paths to review. Scope is pre-determined — do not ask for confirmation.
+- **Behavior**: skip interactive scope confirmation. Skip executive summary and coverage matrix generation. Review only the provided files against the review categories.
+- **Output**: return a findings-only list. Each finding uses this format:
+
+  ```
+  ### [HF-{n}] {title}
+  - Severity: critical | major | minor | info
+  - Category: {category from the 20 review categories}
+  - File: {path}:{line}
+  - Detail: {what was observed}
+  - Guideline: {which standard or rule applies}
+  ```
+
+  If no findings are discovered, return a single line: "No human-factors findings for the provided files."
+
 ## Output Contract
 
-Return a review report with:
+When operating in **standalone** mode, return a review report with:
 
 - **Executive Summary**: overall assessment, highest-risk findings, and scope of review
 - **Scope**: artifacts reviewed, categories assessed, categories not assessable

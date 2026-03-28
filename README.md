@@ -29,6 +29,10 @@ Review healthcare and EHR software interfaces against a comprehensive design sty
 
 Map incentive structures, adoption dynamics, and clinical workflow constraints before shaping solutions. Supports explore and document modes for early-stage ideation, consulting, pilot scoping, and strategic planning.
 
+### [`health-refactor`](skills/.curated/health-refactor)
+
+Produce a scope-bounded, plan-only refactoring assessment for healthcare codebases. Resolves a bounded file set via git range, file area, or symbol/dependency context, then orchestrates three analysis passes — healthcare-aware code refactoring, human-factors review, and HIPAA audit — into a unified plan with findings and a prioritized checklist. Never modifies code.
+
 --- 
 
 For contributing and skill development, see [DEVELOPER.md](https://github.com/reason-healthcare/health-skills/blob/main/DEVELOPER.md).

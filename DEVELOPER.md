@@ -28,6 +28,7 @@ Current curated skills on disk:
 - `health-hipaa-review`
 - `health-human-factors`
 - `health-product-discovery`
+- `health-refactor`
 
 Current overlay examples on disk:
 
@@ -82,6 +83,7 @@ Follow the workflow in [docs/skill-creation-guide.md](docs/skill-creation-guide.
 - Use `assets/` for files that are consumed by the output.
 - Keep optional folders purposeful. `examples/` is acceptable when a concrete sample artifact materially improves the skill.
 - Prefer healthcare-specific utility over generic advice for curated skills.
+- Skills that produce report-only output can support a **scoped invocation mode** — an "Invocation Modes" section that defines both standalone (default) and scoped behavior. In scoped mode the skill accepts a pre-determined file list from an orchestrating skill and returns findings-only output (no executive summary, no interactive scope confirmation). Use this pattern when building orchestrating skills that compose multiple existing skills.
 
 ## Curated Skill Standard
 
