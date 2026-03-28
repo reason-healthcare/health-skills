@@ -18,13 +18,12 @@ The repository SHALL provide a canonical skill library structure for shared skil
 - **THEN** each skill includes `SKILL.md`, `agents/openai.yaml`, and supporting `references/` or `examples/` as appropriate
 
 ### Requirement: Healthcare system documentation skill is available
-The repository SHALL provide a skill for healthcare system documentation coverage auditing and consolidation.
+The repository SHALL provide a curated skill for healthcare system documentation coverage auditing and consolidation.
 
 #### Scenario: Healthcare system documentation skill is available
-- **WHEN** the skill library is inspected
-- **THEN** a skill named `health-docs` exists in `skills/.experimental/`
+- **WHEN** the curated skill library is inspected
+- **THEN** a skill named `health-docs` exists in `skills/.curated/`
 - **THEN** the skill includes `SKILL.md`, `agents/openai.yaml`, `references/` (doc-hierarchy, regime-signals, regulatory-mapping), and `examples/`
-- **NOTE** The skill graduates to `skills/.curated/` once validated in production use; it is not distributed via the `dist` branch until promoted
 
 ### Requirement: Healthcare-oriented skills remain domain-specific
 The repository SHALL treat healthcare software and product-development use cases as the primary domain for authored shared skills.

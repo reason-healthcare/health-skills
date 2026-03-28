@@ -13,6 +13,10 @@ See also: [npx skill docs](https://skills.sh/)
 
 ## Skills
 
+### [`health-docs`](skills/.curated/health-docs)
+
+Audit and consolidate documentation for healthcare software systems. Supports two modes: **analyze** (coverage assessment against a seven-dimension hierarchy with regulatory regime detection across HIPAA, HL7 FHIR, ONC 21st Century Cures, and FDA frameworks) and **document** (consolidate existing docs and fill required gaps). Produces a persistent `.health-docs/analysis.md` handoff artifact and composes existing healthcare skills for deep review passes.
+
 ### [`health-fhir-api-design`](skills/.curated/health-fhir-api-design)
 
 Design FHIR R4 API interactions — search queries, operations (`$`), validation, workflow patterns, and custom SearchParameter / OperationDefinition resources. Provide your requirements; the skill recommends a concrete R4 approach with trade-offs.
@@ -32,14 +36,6 @@ Map incentive structures, adoption dynamics, and clinical workflow constraints b
 ### [`health-refactor`](skills/.curated/health-refactor)
 
 Produce a scope-bounded, plan-only refactoring assessment for healthcare codebases. Resolves a bounded file set via git range, file area, or symbol/dependency context, then orchestrates three analysis passes — healthcare-aware code refactoring, human-factors review, and HIPAA audit — into a unified plan with findings and a prioritized checklist. Never modifies code.
-
-## Experimental Skills
-
-The following skills are under active development and not yet published to the distribution branch.
-
-### [`health-docs`](skills/.experimental/health-docs)
-
-Audit and consolidate documentation for healthcare software systems. Supports two modes: **analyze** (coverage assessment against a seven-dimension hierarchy with regulatory regime detection) and **document** (consolidate existing docs and fill required gaps). Produces a persistent `.health-docs/analysis.md` handoff artifact and composes existing healthcare skills for deep review passes.
 
 ---
 

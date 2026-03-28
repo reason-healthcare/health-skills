@@ -29,9 +29,6 @@ Current curated skills on disk:
 - `health-human-factors`
 - `health-product-discovery`
 - `health-refactor`
-
-Current experimental skills on disk:
-
 - `health-docs`
 
 Current overlay examples on disk:
