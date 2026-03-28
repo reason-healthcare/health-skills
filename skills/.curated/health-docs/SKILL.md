@@ -31,6 +31,7 @@ Read the handoff artifact from analyze mode, conduct an evidence-informed interv
 - If a relevant subagent is unavailable, fall back to direct analysis for that dimension; note reduced confidence in the artifact.
 - Treat external links (Confluence, Notion, GDrive) as "unverifiable — content not assessed" — mark coverage as partial, not covered.
 - The `.health-docs/` directory is the skill's work directory in the target repo. Do not treat it as part of the documentation hierarchy.
+- **Credential redaction**: Before consolidating or copying any content, scan for secrets, API keys, tokens, passwords, private keys, and credentials. Do not reproduce secret material — replace with `[REDACTED — potential secret at <source-path>:<line>]` and note each redaction in the run record. If a file appears to be an environment file (`.env`, `.env.*`, `secrets.*`, `credentials.*`) or contains only key-value credential pairs, skip it entirely and note it in the run record rather than consolidating it.
 
 ---
 
@@ -173,7 +174,7 @@ Do not write any files until the user confirms.
 
 Execute in strict order:
 
-1. **Consolidate** — copy content from source locations to target paths. Do not rewrite — preserve substance, fix location. Do not delete the source file; the flag-originals step handles that. Add `⚠ REQUIRES HUMAN REVIEW` header to any `comply/` target file.
+1. **Consolidate** — copy content from source locations to target paths. Do not rewrite — preserve substance, fix location. Do not delete the source file; the flag-originals step handles that. Add `⚠ REQUIRES HUMAN REVIEW` header to any `comply/` target file. Apply credential redaction before writing (see Operating Rules).
 2. **Merge** — when multiple sources cover the same topic, merge them into the target file. Insert a visible conflict marker where descriptions differ:
    ```
    <!-- ⚠ CONFLICT: session timeout described as 30min in README.md and 60min in AGENTS.md. Resolve before treating this document as authoritative. -->
