@@ -1,5 +1,7 @@
 # Reason: Healthcare Tech Skills
 
+[![Skill Quality Gate](https://github.com/reason-healthcare/health-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/reason-healthcare/health-skills/actions/workflows/ci.yml)
+
 Shared AI skills for building healthcare technology software and digital health products. These skills are created by [Vermonster](https://vermonster.com), a software studio with over 15 years of experience building healthcare technology systems.
 
 ## Install
