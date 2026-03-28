@@ -1,4 +1,8 @@
-## ADDED Requirements
+## Purpose
+
+Defines the skill authoring guide covering the OpenSpec-based creation workflow, experimental testing, promotion to curated, validation, and distribution readiness criteria.
+
+## Requirements
 
 ### Requirement: Repository defines a healthcare-focused authoring guide
 The repository SHALL include a skill authoring guide for contributors creating shared healthcare-tech skills.
@@ -48,4 +52,3 @@ The authoring guide SHALL define what makes a skill ready to be distributed as a
 - **WHEN** the maintainer evaluates the skill for inclusion
 - **THEN** the guide provides explicit criteria for readiness such as domain fit, structural completeness, and validation status
 - **THEN** the maintainer can distinguish draft or experimental skills from curated distributable skills
-

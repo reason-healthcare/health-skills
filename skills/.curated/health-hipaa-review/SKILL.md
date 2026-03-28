@@ -46,6 +46,7 @@ Use this skill to inspect healthcare software and produce an audit report of cod
 ## Resources
 
 - `references/control-areas.md`: baseline HIPAA, PHI, and PII audit criteria with sample findings and source links grounded in HHS and NIST guidance
+- `examples/example-report.md`: example audit report showing expected output shape, finding format, and coverage matrix
 
 ## Output Contract
 

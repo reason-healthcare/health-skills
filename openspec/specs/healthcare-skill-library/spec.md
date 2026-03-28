@@ -1,4 +1,8 @@
-## ADDED Requirements
+## Purpose
+
+Defines the healthcare skill library structure, curated skill catalog, example output expectations, and distribution model via the `dist` branch.
+
+## Requirements
 
 ### Requirement: Repository organizes a healthcare skill library
 The repository SHALL provide a canonical skill library structure for shared skills used to build healthcare technology software and digital health products.

@@ -129,4 +129,5 @@ Review an existing FHIR R4 API design or set of queries for correctness and comp
 ## References
 
 - `references/fhir-patterns.md` — R4 search, operations, validation, and workflow patterns with examples
+- `examples/example-design.md` — example design output showing expected structure, query format, trade-off documentation, and spec references
 - FHIR R4 spec: `https://hl7.org/fhir/R4/`

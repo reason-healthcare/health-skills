@@ -246,6 +246,7 @@ Use document when:
 
 * Structured discovery output with incentive and adoption analysis (explore)
 * Strategic planning artifact with healthcare-specific sections (document), see `references/document-template.md`
+* `examples/example-explore.md` — example explore output showing expected structure, stakeholder-incentive map, and recommendation format
 
 ---
 

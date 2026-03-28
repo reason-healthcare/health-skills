@@ -1,4 +1,8 @@
-## ADDED Requirements
+## Purpose
+
+Defines the canonical repository structure, source-of-truth model, and derived-artifact relationship between authored skills on `main` and generated outputs (local agent trees and `dist` branch).
+
+## Requirements
 
 ### Requirement: Repository defines canonical authored source
 The repository SHALL use a canonical authored source layout that is independent from agent-specific installation directories.
@@ -27,4 +31,3 @@ The repository SHALL treat agent-specific skill directories as generated or comp
 - **WHEN** the base skill changes
 - **THEN** agent-specific outputs are updated from the canonical source plus overlay rules
 - **THEN** agent-specific directories are not treated as co-equal sources of truth
-

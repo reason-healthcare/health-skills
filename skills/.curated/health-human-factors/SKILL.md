@@ -63,6 +63,7 @@ Each category maps to a section of the style guide reference.
 ## Resources
 
 - `references/style-guide.md`: full Healthcare Software Design Style Guide with criteria, examples, and source standards
+- `examples/example-report.md`: example review report showing expected output shape, finding format, and coverage matrix
 
 ## Output Contract
 
