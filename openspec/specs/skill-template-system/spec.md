@@ -11,7 +11,7 @@ The repository SHALL provide a reusable template for initializing new skills.
 - **WHEN** a contributor scaffolds a new skill
 - **THEN** the generated structure includes a `SKILL.md` file
 - **THEN** the generated structure includes `agents/openai.yaml`
-- **THEN** the generated structure supports optional `scripts/`, `references/`, and `assets/` directories
+- **THEN** the generated structure supports optional `scripts/`, `references/`, `assets/`, and `examples/` directories
 
 ### Requirement: Template supports progressive disclosure
 The standard skill template SHALL support concise core instructions with optional deeper resources loaded only when needed.

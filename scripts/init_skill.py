@@ -11,14 +11,21 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = ROOT / "templates" / "skill"
 MAX_NAME_LENGTH = 64
-OPTIONAL_DIRS = ("scripts", "references", "assets")
+OPTIONAL_DIRS = ("scripts", "references", "assets", "examples")
 
 
 def normalize_name(value: str) -> str:
     value = value.strip().lower()
     value = re.sub(r"[^a-z0-9]+", "-", value)
     value = re.sub(r"-{2,}", "-", value).strip("-")
-    return value
+    if not value:
+        return value
+    parts = [part for part in value.split("-") if part]
+    while parts and parts[0] == "health":
+        parts.pop(0)
+    if not parts:
+        return "health"
+    return "-".join(["health", *parts])
 
 
 def validate_name(value: str) -> None:

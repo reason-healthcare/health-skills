@@ -1,5 +1,5 @@
 ---
-name: health-your-skill-name
+name: your-skill-name
 description: Healthcare-focused skill for <replace-this>. Use when an agent needs support with <replace-this>, especially in healthcare software, digital health product, clinical workflow, interoperability, privacy, security, or operational contexts.
 ---
 
@@ -27,6 +27,7 @@ State what this skill enables and the healthcare context it is designed for.
 - `references/`: domain-specific guidance for conditional loading
 - `scripts/`: deterministic helpers
 - `assets/`: templates or output artifacts
+- `examples/`: representative sample output artifacts
 
 ## Output Contract
 

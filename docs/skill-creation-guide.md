@@ -47,7 +47,7 @@ Once the proposal is accepted, scaffold the skill directory:
 python3 scripts/init_skill.py health-claims-workflow-review \
   --group .experimental \
   --description "claims workflow review" \
-  --include references scripts assets
+  --include references scripts assets examples
 ```
 
 This creates a new skill under `skills/.experimental/` with the standard file layout.
