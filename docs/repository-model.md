@@ -4,10 +4,10 @@ This repository is the source of truth for shared AI skills used to build health
 
 ## Canonical Source
 
-Author skills in `skills/` only.
+Author skills in `skills/` on the `main` branch only. This is the single source of truth.
 
-- `skills/.curated/`: reviewed skills intended for shared distribution
-- `skills/.experimental/`: draft skills that are still being shaped
+- `skills/.curated/`: reviewed skills intended for shared distribution via the `dist` branch
+- `skills/.experimental/`: draft skills that are still being shaped; not published to `dist`
 
 ## Generated Install Trees
 
@@ -19,6 +19,18 @@ Treat these directories as generated install outputs for agent runtimes:
 - `.github/skills/`
 
 Do not hand-author base skill content in those directories. Compose them from canonical skills plus overlays.
+
+## Distribution Branch
+
+The `dist` branch is a generated, publishable layout containing only curated skills. Consumers install from it:
+
+```
+npx skills add https://github.com/reason-healthcare/health-skills/tree/dist
+```
+
+The `dist` branch is built by `scripts/publish_dist_branch.py` and does not contain experimental skills, scripts, development tooling, or OpenSpec artifacts. Do not author content on `dist` directly.
+
+Flow: edit `skills/` on `main` → validate → publish to `dist`.
 
 ## Preserved Authored Runtime Files
 

@@ -69,74 +69,7 @@ For normal authoring work:
 
 ## Create A New Skill
 
-### 1. Proposal
-
-Start with an OpenSpec proposal. Describe the skill's purpose, healthcare context, target users, and intended output shape.
-
-### 2. Scaffold
-
-Once the proposal is accepted, scaffold the skill directory:
-
-```bash
-python3 scripts/init_skill.py health-claims-workflow-review \
-  --group .experimental \
-  --description "claims workflow review" \
-  --include references scripts assets
-```
-
-This creates a new skill under `skills/.experimental/health-claims-workflow-review/` with the standard file layout.
-
-### 3. Design and Specs
-
-Continue through the OpenSpec artifacts:
-
-- **Design**: detail the workflow, review categories or modes, and output contract
-- **Specs**: write the delta specs covering SKILL.md structure, references, and examples
-
-Use the scaffolded directory as the target — fill in `SKILL.md`, references, and examples as the specs take shape.
-
-### 4. Tasks and Implementation
-
-Generate tasks from the specs and implement them. Typical tasks include:
-
-- Write the `SKILL.md` frontmatter, workflow, constraints, and output contract
-- Create reference documents in `references/`
-- Create an example output in `examples/`
-- Write `agents/openai.yaml` metadata
-
-### 5. Test the Experimental Skill
-
-Compose the skill into local agent trees and exercise it:
-
-```bash
-python3 scripts/compose_skills.py
-```
-
-Then invoke the skill from your agent of choice (e.g., `$health-claims-workflow-review` in Copilot Chat). Verify:
-
-- the skill triggers correctly from the frontmatter description
-- the workflow steps produce coherent output
-- references load when needed and stay out of context when not
-- the output matches the contract defined in SKILL.md
-- the example output in `examples/` is representative of real results
-
-Iterate on `skills/.experimental/<skill-name>/` and re-compose until the skill is solid.
-
-### 6. Promote to Curated
-
-When the skill meets the curated standard (see below), move it:
-
-```bash
-mv skills/.experimental/health-claims-workflow-review skills/.curated/health-claims-workflow-review
-```
-
-Then:
-
-1. Validate: `python3 scripts/validate_skill_library.py`
-2. Add the skill to `README.md` (alphabetical order, with a link to the source directory)
-3. Add any needed overlays in `profiles/<agent>/<skill>/`
-4. Publish: `python3 scripts/publish_dist_branch.py --branch dist`
-5. Verify: `python3 scripts/verify_skills_sh_compat.py --dist-branch dist`
+Follow the workflow in [docs/skill-creation-guide.md](docs/skill-creation-guide.md). It covers the full lifecycle: proposal, scaffold, design, implementation, testing, and promotion to curated.
 
 ## Authoring Rules
 
