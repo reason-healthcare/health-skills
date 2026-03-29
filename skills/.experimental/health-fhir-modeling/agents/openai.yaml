@@ -1,0 +1,4 @@
+interface:
+  display_name: "FHIR R4 Modeling"
+  short_description: "Map domain concepts to FHIR R4 resources and understand profile compliance"
+  default_prompt: "Use $health-fhir-modeling to model your domain concepts using FHIR R4. Describe what you are trying to represent and the skill will recommend the right resources, explain applicable US Core profile constraints, model relationships, and provide an annotated example instance."

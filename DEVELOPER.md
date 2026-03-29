@@ -31,6 +31,10 @@ Current curated skills on disk:
 - `health-refactor`
 - `health-docs`
 
+Current experimental skills on disk:
+
+- `health-fhir-modeling`
+
 Current overlay examples on disk:
 
 - `profiles/codex/health-fhir-api-design/agents/openai.yaml`
