@@ -25,6 +25,7 @@ Edit `skills/` on `main` → validate → compose → publish to `dist`.
 Current curated skills on disk:
 
 - `health-fhir-api-design`
+- `health-fhir-modeling`
 - `health-hipaa-review`
 - `health-human-factors`
 - `health-product-discovery`
@@ -33,7 +34,7 @@ Current curated skills on disk:
 
 Current experimental skills on disk:
 
-- `health-fhir-modeling`
+- none
 
 Current overlay examples on disk:
 

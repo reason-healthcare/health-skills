@@ -60,7 +60,7 @@ Audit and consolidate documentation for healthcare software systems. Supports tw
 
 Design FHIR R4 API interactions — search queries, operations (`$`), validation, workflow patterns, and custom SearchParameter / OperationDefinition resources. Provide your requirements; the skill recommends a concrete R4 approach with trade-offs.
 
-### [`health-fhir-modeling`](skills/.experimental/health-fhir-modeling) *(experimental)*
+### [`health-fhir-modeling`](skills/.curated/health-fhir-modeling)
 
 Map domain concepts to FHIR R4 resources and understand profile compliance. Select the right base resources, read US Core and QI Core constraints, model relationships, find existing extensions, and apply terminology bindings (LOINC, SNOMED CT, RxNorm). Outputs annotated example instances — for app developers, not profile authors.
 
@@ -83,4 +83,3 @@ Produce a scope-bounded, plan-only refactoring assessment for healthcare codebas
 ---
 
 For contributing and skill development, see [DEVELOPER.md](https://github.com/reason-healthcare/health-skills/blob/main/DEVELOPER.md).
-
