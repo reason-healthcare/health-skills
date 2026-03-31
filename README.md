@@ -72,6 +72,10 @@ Produce a report-only HIPAA, PHI, and PII audit for healthcare codebases and del
 
 Review healthcare and EHR software user interfaces against a comprehensive design style guide grounded in NIST, FDA, IEC 62366, ISO 9241, ISO 14971, WCAG 2.1, ONC SAFER, and HL7 FHIR standards. Produces a report-only assessment of patient safety, usability, accessibility, and data clarity without modifying code or designs.
 
+### [`health-project-context`](skills/.experimental/health-project-context)
+
+Bootstrap reusable healthcare project context from repository evidence. Infers jurisdiction, primary audience, and whether the repo is greenfield or existing, then persists that context in `.health-context.yaml` for future skills.
+
 ### [`health-product-discovery`](skills/.curated/health-product-discovery)
 
 Map incentive structures, adoption dynamics, and clinical workflow constraints before shaping solutions. Supports explore and document modes for early-stage ideation, consulting, pilot scoping, and strategic planning.

@@ -29,6 +29,8 @@ Use the standard skill layout:
 
 Keep `SKILL.md` small and purposeful. Put large healthcare references such as workflow constraints, interoperability notes, or delivery checklists into `references/`.
 
+If a skill's main job is to persist reusable project context for later runs, a hidden root-level artifact such as `.health-context.yaml` is an acceptable output pattern. Keep the schema narrow, evidence-backed, and specific to the healthcare workflow the skill supports.
+
 Use the `health-` prefix for distributable healthcare skill names.
 
 ## Creation Workflow

@@ -34,7 +34,7 @@ Current curated skills on disk:
 
 Current experimental skills on disk:
 
-- none
+- `health-project-context`
 
 Current overlay examples on disk:
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Healthcare Project Context"
+  short_description: "Infer and persist repo context for healthcare skills"
+  default_prompt: "Use $health-project-context to inspect a repository, infer jurisdiction, primary audience, and project stage, then write or refresh .health-context.yaml for downstream healthcare skills."

@@ -1,0 +1,24 @@
+version: 1
+generated_at: "2026-03-31T12:00:00Z"
+
+jurisdiction:
+  value: us
+  confidence: high
+  evidence:
+    - "HIPAA and PHI handling guidance in docs/security.md"
+    - "US Core profile references in docs/interoperability.md"
+
+primary_audience:
+  value: provider
+  confidence: medium
+  evidence:
+    - "Clinician-facing chart review and order entry workflows in app/views/"
+    - "Role names include physician, nurse, and care coordinator"
+
+project_stage:
+  value: existing
+  confidence: high
+  evidence:
+    - "Repository contains application source, tests, CI workflows, and database migrations"
+
+confirmed_by_user: true
