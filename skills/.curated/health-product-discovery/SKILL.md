@@ -1,6 +1,6 @@
 ---
 name: health-product-discovery
-description: Healthcare product discovery skill that maps incentive structures, adoption dynamics, and clinical workflow constraints before shaping solutions. Supports explore and document modes for early-stage ideation, consulting, pilot scoping, and strategic planning.
+description: Healthcare product discovery skill that maps incentive structures, adoption dynamics, and clinical workflow constraints before shaping solutions. Uses a jurisdiction-neutral core workflow plus explicit US and EU market overlays. Supports explore and document modes for early-stage ideation, consulting, pilot scoping, and strategic planning.
 ---
 
 # Skill: health-product-discovery
@@ -22,6 +22,17 @@ This skill is intended for:
 * pilot definition and scope negotiation
 * internal product planning and strategic alignment
 
+## Jurisdiction Overlay Selection
+
+Keep the base discovery flow jurisdiction-neutral. Apply market overlays only after selecting one of `us`, `eu`, `us+eu`, or `unclear`.
+
+Use this order:
+
+1. Read `.health-context.yaml` if it exists and note the stored jurisdiction.
+2. Check the user prompt, provided materials, and repository evidence for confirming or conflicting market signals.
+3. Load `references/us-market-overlay.md` and/or `references/eu-market-overlay.md` only for the selected overlay set. Each overlay provides market-specific challenge prompts for explore mode, required content additions for document mode, and healthcare economics depth for both.
+4. If evidence is mixed, say so explicitly and avoid silently defaulting to US market assumptions.
+
 ---
 
 ## Modes
@@ -31,6 +42,15 @@ This skill is intended for:
 #### Intent
 
 Understand the problem space through healthcare-specific lenses before committing to a solution. Surface the dynamics that generic discovery misses.
+
+#### Setup
+
+Before beginning explore steps, load:
+
+- `references/discovery-checklist.md` — full step-by-step prompt set for each explore step
+- `references/stakeholder-incentives.md` — incentive pattern reference: four-role model, payment model dynamics, buyer-user split tables
+- `references/adoption-dynamics.md` — adoption barrier reference: clinician, organizational, and market layer barriers, champion models, procurement timelines
+- Active jurisdiction overlay(s) — for market-specific adversarial challenge prompts
 
 #### Behavior
 
@@ -56,9 +76,10 @@ Understand the problem space through healthcare-specific lenses before committin
    * Who makes the purchase decision (buyer)?
    * Who benefits from a solution (beneficiary)?
    * Who pays — directly or indirectly (funder)?
+   * Is the buyer a provider organization, payer, public system, ministry, regional health authority, or framework procurement body?
    * Where do these roles align, and where do they conflict?
    * Which stakeholder absorbs the workflow burden of a new process?
-   * Who has veto power (IT governance, compliance, CMO, CFO)?
+   * Who has veto power (IT governance, compliance, CMO, CFO, procurement, regional authority)?
 
 3. Workflow and Integration Context
 
@@ -70,10 +91,10 @@ Understand the problem space through healthcare-specific lenses before committin
 
 4. Payment Model and Business Viability
 
-   * What payment model applies (fee-for-service, value-based, capitated, grant-funded)?
+   * What payment or funding model applies (fee-for-service, value-based, capitated, public budget, tender-funded, grant-funded)?
    * Does the payment model reward or penalize the proposed improvement?
    * Who captures the financial value — and is it the same party who pays for the product?
-   * What is the realistic procurement timeline (months to years)?
+   * What is the realistic procurement timeline (committee path, budget cycle, tender cycle, months to years)?
 
 5. Evidence and Trust Requirements
 
@@ -123,7 +144,17 @@ Understand the problem space through healthcare-specific lenses before committin
 
 Produce a structured strategic planning artifact grounded in healthcare market realities.
 
+#### Setup
+
+Before producing output, load:
+
+- `references/document-template.md` — full output structure, section-by-section guidance, and placeholder conventions
+- `references/discovery-checklist.md` — document mode checklist for section completeness
+- Active jurisdiction overlay(s) — for required content additions specific to the selected market
+
 #### Output Structure
+
+Use `references/document-template.md` for the full output structure. Required sections are listed below; overlay-specific additions are in each overlay's **Document Mode Additions** section.
 
 ### Context
 
@@ -164,10 +195,11 @@ Produce a structured strategic planning artifact grounded in healthcare market r
 
 ### Payment Model and Business Viability
 
-* Applicable payment models
+* Applicable payment or funding models
 * Value capture alignment (who pays vs who benefits)
 * Procurement path and timeline
 * Revenue or funding model assumptions
+* Market-specific assumptions for `us`, `eu`, or `us+eu` overlays
 
 ### Technical Approach
 
@@ -240,6 +272,7 @@ Use document when:
 
 * User prompt
 * Domain context (care setting, specialty, population, payment model)
+* Jurisdiction context from `.health-context.yaml` when present
 * Existing notes, artifacts, or prior discovery output (if provided)
 
 ---
@@ -249,6 +282,7 @@ Use document when:
 * Structured discovery output with incentive and adoption analysis (explore)
 * Strategic planning artifact with healthcare-specific sections (document), see `references/document-template.md`
 * `examples/example-explore.md` — example explore output showing expected structure, stakeholder-incentive map, and recommendation format
+* `examples/example-document-multi-market.md` — example document-mode output showing shared findings plus market-specific US and EU assumptions
 
 ---
 
@@ -272,3 +306,5 @@ Use document when:
 - `references/document-template.md`: output shape template for document mode — use as the starting structure for strategic planning artifacts
 - `references/stakeholder-incentives.md`: incentive structures, buyer-user splits, and payment model dynamics
 - `references/adoption-dynamics.md`: healthcare adoption barriers, champion models, and procurement realities
+- `references/us-market-overlay.md`: US-specific payment, buyer, and procurement assumptions that should not remain implicit defaults
+- `references/eu-market-overlay.md`: EU product and market-access overlay covering fragmentation, procurement, reimbursement, localisation, interoperability, and public-system incentives

@@ -8,6 +8,10 @@
 
 - **Context mode**: git range
 - **Input**: `origin/main..feature/medication-dashboard`
+- **Proposed jurisdiction overlays**: `us`
+- **Overlay evidence**:
+  - patient medication and PCP workflow language
+  - HIPAA-style PHI exposure concern in browser console
 - **Resolved files** (6):
   - `src/components/MedList.tsx`
   - `src/components/MedDetail.tsx`
@@ -64,15 +68,15 @@
 - Detail: When the FHIR server returns an error, the raw OperationOutcome JSON is rendered. This is not actionable for clinical users.
 - Guideline: NISTIR 7804 §4.9 — error messages must be expressed in plain language with guidance on corrective action.
 
-### HIPAA Findings
+### Regulatory Findings
 
 ### [H-1] Patient name logged in development console
-- Source: hipaa
+- Source: regulatory
 - Severity: critical
 - Category: PHI Exposure
 - File: src/hooks/useMedicationData.ts:28
 - Detail: `console.log("Fetching meds for:", patient.name)` writes the patient's name to the browser console. This persists in dev tools and may be captured in log aggregation.
-- Guideline: 45 CFR §164.312(a)(1) — access controls must limit PHI exposure to the minimum necessary.
+- Guideline: US overlay — HIPAA minimum necessary handling
 
 ---
 

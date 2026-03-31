@@ -11,6 +11,19 @@
 
 ---
 
+## Jurisdiction Overlay Selection
+
+- `.health-context.yaml`: not present
+- Prompt and evidence suggest: `us`
+- Evidence:
+  - primary care physicians, nephrology referral workflow, and PCP panel language
+  - EHR-centered workflow and SMART/FHIR-style integration assumptions
+  - Medicare Advantage / ACO / MIPS-style buyer and incentive framing
+
+Applying `references/us-market-overlay.md` only.
+
+---
+
 ## Problem Summary
 
 Chronic kidney disease (CKD) affects approximately 37 million US adults. Progression from stage 3 to stages 4–5 is often preventable or delayable with timely nephrology co-management, medication optimization (SGLT2 inhibitors, ACE/ARB titration), and dietary intervention. However, primary care physicians (PCPs) frequently miss the window for referral because:

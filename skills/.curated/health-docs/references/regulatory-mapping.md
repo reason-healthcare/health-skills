@@ -2,6 +2,11 @@
 
 This reference maps each documentation dimension and target file to the regulatory requirement it satisfies. Use it in analyze mode to assign regulatory class to coverage gaps, and in document mode to prioritize drafting order and apply `⚠ REQUIRES HUMAN REVIEW` to compliance-class documents.
 
+For jurisdiction-specific work, use this file together with:
+
+- `references/us-docs-overlay.md`
+- `references/eu-docs-overlay.md`
+
 **Classification key:**
 - **Required** — explicitly mandated; absence is a compliance gap
 - **Addressable** — must implement or document a reasonable alternative
@@ -105,6 +110,14 @@ These documents have no direct regulatory requirement but are expected by techni
 
 ---
 
+## Overlay Note
+
+- Use the base mappings above for shared engineering documentation and current US-oriented compliance dimensions.
+- When `eu` or `us+eu` overlays are active, add the EU-oriented compliance targets from `references/eu-docs-overlay.md` to the coverage matrix and draft plan.
+- When `us` or `us+eu` overlays are active, keep the current HIPAA / ONC / FDA mappings and supplement them with `references/us-docs-overlay.md` where needed.
+
+---
+
 ## Prioritization Matrix
 
 When document mode must decide what to draft first, use this order:
@@ -112,8 +125,119 @@ When document mode must decide what to draft first, use this order:
 | Priority | Condition | Action |
 |---|---|---|
 | P0 | HIPAA required, absent | Draft immediately, mark for human review |
+| P0 | GDPR required, absent (when `eu` or `us+eu`) | Draft immediately, mark for human review |
 | P1 | HIPAA-required supporting evidence, absent | Draft, note HIPAA connection |
+| P1 | MDR / AI Act / NIS2 required, absent (when regime confirmed) | Draft, mark for human review |
 | P2 | ONC/FDA required, absent | Draft if regime confirmed, mark for human review |
+| P2 | EHDS required, absent (when regime confirmed) | Draft, mark for human review |
 | P3 | Agent-context missing | Draft — no human review required |
 | P4 | General engineering docs, absent | Draft as time/scope allows |
 | Skip | Required: false in profile | Do not create |
+
+---
+
+## EU Regulatory Mapping
+
+Source: GDPR (Regulation (EU) 2016/679), Directive (EU) 2022/2555 (NIS2), MDR (Regulation (EU) 2017/745), IVDR (Regulation (EU) 2017/746), AI Act (Regulation (EU) 2024/1689), EHDS (Regulation (EU) 2025/327).
+
+All documents in `comply/eu/` require `⚠ REQUIRES HUMAN REVIEW` — regulatory interpretation is member-state-specific and the skill cannot certify compliance.
+
+### GDPR Mapping
+
+| Document | GDPR Article | Classification | Requirement Summary |
+|---|---|---|---|
+| `comply/eu/gdpr/data-roles-and-lawful-basis.md` | Art. 6, 9, 26, 28 | Required | Documents legal basis for processing, controller identity, and any joint-controller or controller-processor relationships |
+| `comply/eu/gdpr/data-subject-rights.md` | Art. 13–17, 20, 21 | Required | Documents how rights requests (erasure, portability, rectification, objection) are handled |
+| `comply/eu/gdpr/vendor-and-transfer-boundaries.md` | Art. 28, 46, 49 | Required | Inventory of processors and sub-processors; SCCs, adequacy decisions, or transfer impact assessments for cross-border flows |
+| `understand/data-flows.md` | Art. 30 | Engineering evidence | Supports Records of Processing Activities (RoPA) — ePHI flows map closely to personal data flows |
+| `understand/integrations.md` | Art. 28 | Engineering evidence | Identifies processors and sub-processors that require DPAs |
+| `secure/auth-model.md` | Art. 25, 32 | Engineering evidence | Privacy by design and security of processing |
+| `secure/audit-logs.md` | Art. 32, 33 | Engineering evidence | Security measures; supports breach detection and 72-hour notification obligation |
+| `secure/encryption.md` | Art. 32(1)(a) | Addressable | Encryption is a listed security measure under Art. 32 |
+| `operate/runbooks/breach-notification.md` | Art. 33, 34 | Required | Controller must notify supervisory authority within 72 hours; may need to notify data subjects |
+
+### GDPR Required Document Checklist
+
+Documents that must exist when GDPR applies. Absence is a reportable gap:
+
+- [ ] `comply/eu/gdpr/data-roles-and-lawful-basis.md`
+- [ ] `comply/eu/gdpr/data-subject-rights.md`
+- [ ] `comply/eu/gdpr/vendor-and-transfer-boundaries.md`
+- [ ] `operate/runbooks/breach-notification.md` (also HIPAA-required — shared document, jurisdiction-specific sections)
+
+---
+
+### MDR / IVDR Mapping
+
+Applies when SaMD or device-style signals suggest the product may qualify as a medical device under EU law.
+
+| Document | Standard / Regulation | Classification | Requirement Summary |
+|---|---|---|---|
+| `comply/eu/mdr-ivdr/classification-and-intended-use.md` | MDR Art. 10, Annex II/III | Required | Documents intended purpose, device classification rationale, and technical documentation summary |
+| `understand/architecture.md` | MDR Annex II §3 | Engineering evidence | Software architecture is part of the technical documentation file |
+| `build/testing.md` | IEC 62304 §5.5, §5.6 | Required | Software unit and integration testing |
+| `comply/fda/risk-management.md` | ISO 14971 | Required | Shared with FDA path — risk management file applies under both MDR and ISO 14971 |
+
+### MDR Required Document Checklist
+
+- [ ] `comply/eu/mdr-ivdr/classification-and-intended-use.md`
+
+---
+
+### EU AI Act Mapping
+
+Applies when the product includes AI or ML components that may qualify as high-risk AI under Annex III, Category 5 (healthcare).
+
+| Document | AI Act Article | Classification | Requirement Summary |
+|---|---|---|---|
+| `comply/eu/ai-act/risk-and-human-oversight.md` | Art. 9, 14, 17 | Required | Risk management system; human oversight measures; technical documentation |
+| `understand/data-flows.md` | Art. 10 | Engineering evidence | Data governance for training / validation data |
+| `build/testing.md` | Art. 9(7) | Required | Testing against defined metrics; test logs |
+| `understand/architecture.md` | Art. 11, Annex IV | Engineering evidence | System architecture as part of technical documentation |
+
+### AI Act Required Document Checklist
+
+- [ ] `comply/eu/ai-act/risk-and-human-oversight.md`
+
+---
+
+### NIS2 Mapping
+
+Applies when the organization is an essential or important entity under NIS2 (healthcare providers and health IT infrastructure in EU member states are in scope).
+
+| Document | NIS2 Article | Classification | Requirement Summary |
+|---|---|---|---|
+| `comply/eu/nis2/incident-coordination-and-cyber-risk.md` | Art. 21, 23 | Required | Cybersecurity risk management measures and incident reporting procedures (24/72-hour obligation) |
+| `operate/runbooks/breach-notification.md` | Art. 23 | Required | Incident notification runbook — covers both GDPR Art. 33 and NIS2 Art. 23 timelines |
+| `secure/threat-model.md` | Art. 21(2)(a) | Engineering evidence | Risk analysis and information system security policies |
+| `secure/secrets-management.md` | Art. 21(2)(h) | Engineering evidence | Supply chain security — includes key and credential management |
+
+### NIS2 Required Document Checklist
+
+- [ ] `comply/eu/nis2/incident-coordination-and-cyber-risk.md`
+- [ ] `operate/runbooks/breach-notification.md` (shared with GDPR and HIPAA; must include NIS2 timeline section when applicable)
+
+---
+
+### EHDS Mapping
+
+Applies when the product participates in European Health Data Space primary-use exchange (MyHealth@EU) or secondary-use data access.
+
+| Document | EHDS Regulation | Classification | Requirement Summary |
+|---|---|---|---|
+| `comply/eu/ehds/primary-use-data-exchange.md` | EHDS Art. 3–20 | Required | Documents interoperability approach, EHR system obligations, and cross-border patient summary handling |
+| `understand/integrations.md` | EHDS Art. 5 | Engineering evidence | Integration with national contact points or MyHealth@EU gateway |
+
+---
+
+## Cross-Jurisdiction Conflict Guide
+
+When `us+eu` is active, the following known conflicts and alignments apply. Flag conflicts as `conflict` items in the coverage matrix and note that resolution requires legal review — do not attempt to resolve them in documentation.
+
+| Topic | US (HIPAA) | EU (GDPR) | Disposition |
+|---|---|---|---|
+| Data retention | Required: 6 years for covered entities (§164.530(j)) | Required: erasure on request (Art. 17); no fixed retention floor | **Conflict** — document the tension explicitly; `comply/eu/gdpr/data-subject-rights.md` must note the HIPAA retention obligation as a lawful restriction on erasure |
+| Minimum necessary vs. data minimization | Minimum necessary standard (§164.502(b)) | Data minimization principle (Art. 5(1)(c)) | **Aligned** — both limit processing to what is needed; cite both in `understand/data-flows.md` |
+| De-identification | Safe Harbor or Expert Determination methods (§164.514) | Anonymization removes GDPR scope; pseudonymization reduces but does not eliminate obligations | **Partial alignment** — HIPAA de-id may not meet GDPR anonymization threshold; note in `comply/hipaa/risk-analysis.md` and `comply/eu/gdpr/data-roles-and-lawful-basis.md` |
+| Breach notification timeline | 60 days to HHS + affected individuals (§164.408) | 72 hours to supervisory authority (GDPR Art. 33); 24 hours for NIS2 significant incidents | **Conflict** — `operate/runbooks/breach-notification.md` must include jurisdiction-specific timeline sections; do not merge into a single narrative |
+| Cross-border data export | Business associate agreements govern vendor transfers | Standard Contractual Clauses or adequacy decisions required for transfers outside EEA | **Additive** — US BAA and EU SCCs are separate obligations; both must be reflected in `comply/eu/gdpr/vendor-and-transfer-boundaries.md` and `comply/hipaa/baa-inventory.md` |

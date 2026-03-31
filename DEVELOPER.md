@@ -85,6 +85,7 @@ Follow the workflow in [docs/skill-creation-guide.md](docs/skill-creation-guide.
 - Put trigger conditions in frontmatter `description`.
 - Keep `SKILL.md` focused on workflow, constraints, and output contract.
 - Use `references/` for large domain guidance.
+- When regional behavior diverges, keep one top-level skill and put US/EU behavior in per-skill `references/` overlays. Reuse `.health-context.yaml` when it helps. See [docs/jurisdiction-aware-overlays.md](docs/jurisdiction-aware-overlays.md).
 - Use `scripts/` for deterministic helpers.
 - Use `assets/` for files that are consumed by the output.
 - Keep optional folders purposeful. `examples/` is acceptable when a concrete sample artifact materially improves the skill.
@@ -175,5 +176,6 @@ python3 scripts/verify_skills_sh_compat.py --dist-branch dist
 ## References
 
 - [docs/repository-model.md](docs/repository-model.md)
+- [docs/jurisdiction-aware-overlays.md](docs/jurisdiction-aware-overlays.md)
 - [docs/skill-creation-guide.md](docs/skill-creation-guide.md)
 - [templates/skill/SKILL.md](templates/skill/SKILL.md)

@@ -8,6 +8,10 @@
 
 - **Context mode**: symbol/dependency
 - **Input**: `PatientService`
+- **Proposed jurisdiction overlays**: `eu`
+- **Overlay evidence**:
+  - GDPR-style export and access concerns in service and audit paths
+  - member-state deployment note in worker configuration comments
 - **Root file**: `src/services/PatientService.ts`
 
 ### Dependency Graph
@@ -78,23 +82,23 @@ Direct importers (these import PatientService):
 
 > Human-factors analysis: no additional findings beyond HF-1 for the reviewed files.
 
-### HIPAA Findings
+### Regulatory Findings
 
 ### [H-1] Audit logger does not record access to patient data
-- Source: hipaa
+- Source: regulatory
 - Severity: critical
 - Category: Audit Trail
 - File: src/utils/auditLogger.ts:1
 - Detail: auditLogger.ts exposes `logEvent(event: string)` but PatientService never calls it when reading or searching patient data. Patient record access is not audited.
-- Guideline: 45 CFR §164.312(b) — implement audit controls that record access to electronic PHI, including who accessed what record and when.
+- Guideline: EU overlay — record access to health data with traceable audit events
 
 ### [H-2] Patient cache stores full FHIR Patient resource in memory
-- Source: hipaa
+- Source: regulatory
 - Severity: major
 - Category: PHI Minimization
 - File: src/services/PatientService.ts:55
 - Detail: The in-memory cache stores the complete FHIR Patient resource (including SSN identifier, address, and contact details) even though callers only need name, MRN, and DOB. The cache has no entry limit or eviction beyond TTL.
-- Guideline: 45 CFR §164.502(b) — minimum necessary rule. Cache only the fields required by consumers.
+- Guideline: EU overlay — data minimization for cached patient data
 
 ---
 

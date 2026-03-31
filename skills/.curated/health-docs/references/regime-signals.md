@@ -1,4 +1,4 @@
-# Regulatory Regime Signals
+# Regulatory And Jurisdiction Signals
 
 Use this reference in analyze mode Pass 1 to detect applicable regulatory regimes from codebase evidence. Present findings during the evidence-informed interview with confidence level and source locations.
 
@@ -149,3 +149,158 @@ Applies when the software is intended to diagnose, treat, mitigate, or prevent d
 | `provider` model name | schema | HIPAA | Medium |
 | "clinical decision support" in README | documentation | FDA SaMD | Medium |
 | `zipcode` field alone | schema | None | Low |
+| "GDPR" in code or docs | any file | EU (GDPR) | High |
+| `DataSubjectRequest` model | schema | EU (GDPR) | High |
+| `lawful_basis` field | schema | EU (GDPR) | High |
+| `data_controller` / `data_processor` config | config | EU (GDPR) | High |
+| "NIS2" or "essential entity" in docs | docs | EU (NIS2) | High |
+| "MDR 2017/745" or "CE mark" in docs | docs | EU (MDR/IVDR) | High |
+| "AI Act" or "high-risk AI" in docs | docs | EU (AI Act) | High |
+| "EHDS" or "MyHealth@EU" reference | any file | EU (EHDS) | High |
+| `consent_record` model without GDPR ref | schema | EU (GDPR) | Medium |
+| EU member-state locale config | config | EU (jurisdiction) | Medium |
+
+---
+
+## EU Jurisdiction Signals
+
+Use these signals to determine whether the repository likely targets EU healthcare delivery, EU health-data handling, or EU regulatory programs. The EU section is organized by regulatory regime, matching the structure of the US section above.
+
+---
+
+## GDPR Signals
+
+Applies when the system processes personal data of EU residents, including health data (Article 9 special category).
+
+### High-Confidence GDPR Signals
+
+**Field and variable names** (case-insensitive, any naming convention):
+- `data_subject`, `data_controller`, `data_processor`, `joint_controller`
+- `lawful_basis`, `lawful_basis_code`, `processing_purpose`
+- `consent_record`, `consent_withdrawn`, `consent_version`
+- `right_to_erasure`, `erasure_request`, `deletion_request`
+- `portability_request`, `data_portability`, `dsr` (data subject request)
+- `dpa_url`, `dpo_email`, `supervisory_authority`
+- `retention_policy`, `data_retention_days`
+
+**Model / class / table names**:
+- `DataSubjectRequest`, `ConsentRecord`, `ProcessingActivity`
+- `LawfulBasis`, `DataRetentionPolicy`, `PrivacyNotice`
+- `DataProtectionImpactAssessment`, `DPIA`
+
+**API routes and endpoint strings**:
+- `/gdpr/`, `/data-subject/`, `/erasure/`, `/portability/`, `/consent/`
+- `/dsar/`, `/privacy/`, `/rights/`
+
+**Explicit references** in code, comments, config, or docs:
+- "GDPR", "General Data Protection Regulation", "Regulation (EU) 2016/679"
+- "Article 6", "Article 9", "Article 13", "Article 17", "Article 28"
+- "special categories", "special category data", "sensitive health data"
+- "data protection officer", "DPO", "supervisory authority", "lead supervisory authority"
+- "controller-processor agreement", "data processing agreement", "DPA"
+- "standard contractual clauses", "SCC", "adequacy decision", "transfer impact assessment"
+- "data breach notification", "72-hour notification"
+
+**Dependencies** (package names, gem names, pip packages):
+- `gdpr`, `django-gdpr-assist`, `gdpr-tools`, `consent-manager`
+- Libraries with `dsar`, `privacy`, `consent` in their names in a healthcare context
+
+### Medium-Confidence GDPR Signals
+
+- `consent` model or table without explicit GDPR reference but alongside PHI fields
+- Cookie consent configuration (`cookieconsent`, `consent_banner`, `cookie_policy`)
+- `locale` config containing EU member-state codes (`de`, `fr`, `nl`, `es`, `it`, `pl`, etc.) with no US locales
+- `privacy_by_design`, `privacy_by_default` comments or flags
+- `anonymize`, `pseudonymize`, `de-identify` methods in a European context
+- EU hosting or data residency config (`eu-west`, `eu-central`, `frankfurt`, `ireland`) without controller language
+
+---
+
+## EHDS Signals
+
+Applies when the system participates in European Health Data Space primary-use or secondary-use data exchange.
+
+### High-Confidence EHDS Signals
+
+- Explicit references to `EHDS`, `European Health Data Space`, `Regulation (EU) 2025/327`
+- `MyHealth@EU`, `cross-border patient summary`, `ePrescription cross-border`, `eLaboratory`
+- IHE XCA (Cross-Community Access) or IHE XDS in a European deployment context
+- `IPS` (International Patient Summary) with EU cross-border deployment context
+- References to national contact points (NCP) or MyHealth@EU gateway integration
+
+### Medium-Confidence EHDS Signals
+- "primary use", "secondary use" of health data in an EU policy context
+- "health data access body", "HDAB" references
+- Cross-border patient identity matching in a European context
+
+---
+
+## MDR / IVDR Signals
+
+Applies when the software may qualify as a medical device or in vitro diagnostic under EU Regulation 2017/745 (MDR) or 2017/746 (IVDR).
+
+### High-Confidence MDR / IVDR Signals
+
+- Explicit references to `MDR`, `MDR 2017/745`, `IVDR`, `IVDR 2017/746`
+- `CE mark`, `CE marking`, `notified body`, `authorized representative`, `EU representative`
+- `clinical evaluation`, `clinical evaluation report`, `CER`, `post-market clinical follow-up`, `PMCF`
+- `unique device identifier`, `UDI`, `EUDAMED`
+- `intended purpose`, `intended use` in a CE-marking or device-regulatory context
+- IEC 62304, EN ISO 14971 referenced in a CE-marking or MDR context (note: these also appear in FDA contexts — require corroborating MDR evidence)
+- `Summary of Safety and Clinical Performance`, `SSCP`
+
+### Medium-Confidence MDR / IVDR Signals
+
+- "device classification", "rule 11", "rule 22" (EU MDR device classification rules)
+- "clinical investigation" in an EU device context
+- "technical documentation" in a CE-marking context (may overlap FDA)
+
+---
+
+## EU AI Act Signals
+
+Applies when the system includes AI or ML components that may qualify as high-risk AI under Regulation (EU) 2024/1689.
+
+### High-Confidence EU AI Act Signals
+
+- Explicit references to `AI Act`, `Regulation (EU) 2024/1689`, `high-risk AI system`
+- `conformity assessment`, `technical documentation` in an AI Act context
+- `fundamental rights impact assessment`, `FRIA`
+- `human oversight`, `human-in-the-loop`, `meaningful human control` in an AI Act compliance context
+- `EU database registration` for AI systems
+- `post-market monitoring` plan for AI (in EU context)
+
+### Medium-Confidence EU AI Act Signals
+
+- AI/ML clinical decision support in a product that also has EU MDR signals (Annex III high-risk category)
+- `risk management` documentation for AI/ML that cites EU rather than FDA guidance
+- `transparency`, `explainability`, `bias` audit language in a clinical AI EU deployment context
+
+---
+
+## NIS2 Signals
+
+Applies when the organization may qualify as an essential or important entity under Directive (EU) 2022/2555 (NIS2). Healthcare providers and digital health infrastructure in EU member states are in scope.
+
+### High-Confidence NIS2 Signals
+
+- Explicit references to `NIS2`, `NIS 2`, `Directive (EU) 2022/2555`
+- `essential entity`, `important entity`, `CSIRT`, `national cybersecurity authority`
+- `incident reporting` with a reference to an EU authority or 24/72-hour reporting obligation
+- Supply chain security documentation referencing NIS2 obligations
+
+### Medium-Confidence NIS2 Signals
+
+- Incident response runbook in an EU healthcare deployment context (without explicit NIS2 citation)
+- Cybersecurity risk management policy citing EU or member-state regulatory frameworks
+- Business continuity and disaster recovery documentation with EU authority notification steps
+
+---
+
+## Jurisdiction Selection Heuristic
+
+- Strong US-only evidence and no EU signals → `us`
+- Strong EU-only evidence and no US signals → `eu`
+- Meaningful evidence for both → `us+eu`
+- Weak or contradictory evidence → `unclear`
+- When `us+eu` is proposed, record US and EU evidence separately in the artifact so the interview can confirm each market independently.

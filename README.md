@@ -54,7 +54,7 @@ Each skill works independently — invoke any one in isolation for its specific 
 
 ### [`health-docs`](skills/.curated/health-docs)
 
-Audit and consolidate documentation for healthcare software systems. Supports two modes: **analyze** (coverage assessment against a seven-dimension hierarchy with regulatory regime detection across HIPAA, HL7 FHIR, ONC 21st Century Cures, and FDA frameworks) and **document** (consolidate existing docs and fill required gaps). Produces a persistent `.health-docs/analysis.md` handoff artifact and composes existing healthcare skills for deep review passes.
+Audit and consolidate documentation for healthcare software systems. Supports two modes: **analyze** (coverage assessment against a seven-dimension hierarchy with jurisdiction-aware regulatory detection) and **document** (consolidate existing docs and fill required gaps). Produces a persistent `.health-docs/analysis.md` handoff artifact, reuses `.health-context.yaml` when present, and composes existing healthcare skills for deep review passes.
 
 ### [`health-fhir-api-design`](skills/.curated/health-fhir-api-design)
 
@@ -66,7 +66,7 @@ Map domain concepts to FHIR R4 resources and understand profile compliance. Sele
 
 ### [`health-regulatory-review`](skills/.curated/health-regulatory-review)
 
-Produce a report-only HIPAA, PHI, and PII audit for healthcare codebases and delivery systems. Inspects code, configs, data flows, integrations, logging, and deployment boundaries for privacy and security gaps without modifying code.
+Produce a report-only healthcare regulatory review for codebases and delivery systems. Selects `us`, `eu`, or `us+eu` overlays from repository evidence, then inspects code, configs, data flows, integrations, logging, and deployment boundaries for privacy and security gaps without modifying code.
 
 ### [`health-human-factors`](skills/.curated/health-human-factors)
 
@@ -78,11 +78,11 @@ Bootstrap reusable healthcare project context from repository evidence. Infers j
 
 ### [`health-product-discovery`](skills/.curated/health-product-discovery)
 
-Map incentive structures, adoption dynamics, and clinical workflow constraints before shaping solutions. Supports explore and document modes for early-stage ideation, consulting, pilot scoping, and strategic planning.
+Map incentive structures, adoption dynamics, and clinical workflow constraints before shaping solutions. Uses a jurisdiction-neutral core workflow plus explicit US and EU market overlays so payment, procurement, localisation, and market-access assumptions stay visible.
 
 ### [`health-refactor`](skills/.curated/health-refactor)
 
-Produce a scope-bounded, plan-only refactoring assessment for healthcare codebases. Resolves a bounded file set via git range, file area, or symbol/dependency context, then orchestrates three analysis passes — healthcare-aware code refactoring, human-factors review, and HIPAA audit — into a unified plan with findings and a prioritized checklist. Never modifies code.
+Produce a scope-bounded, plan-only refactoring assessment for healthcare codebases. Resolves a bounded file set via git range, file area, or symbol/dependency context, proposes `us`, `eu`, or `us+eu` overlays from evidence, then orchestrates healthcare-aware code refactoring, human-factors review, and regulatory review into a unified plan with findings and a prioritized checklist. Never modifies code.
 
 ---
 

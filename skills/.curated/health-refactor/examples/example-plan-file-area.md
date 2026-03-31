@@ -8,6 +8,10 @@
 
 - **Context mode**: file area
 - **Input**: `src/dashboard`
+- **Proposed jurisdiction overlays**: `us+eu`
+- **Overlay evidence**:
+  - PHI storage concerns and audit language in dashboard service
+  - cross-border care summary references in dashboard copy and integration types
 - **Resolved files** (7):
   - `src/dashboard/DashboardPage.tsx`
   - `src/dashboard/PatientSummaryCard.tsx`
@@ -65,23 +69,23 @@
 - Detail: Abnormal vital signs are indicated solely by red text color. Users with color vision deficiency cannot distinguish abnormal from normal values.
 - Guideline: WCAG 2.1 §1.4.1 — do not use color as the only visual means of conveying information. Add an icon or text label.
 
-### HIPAA Findings
+### Regulatory Findings
 
 ### [H-1] Patient summary cached in localStorage
-- Source: hipaa
+- Source: regulatory
 - Severity: critical
 - Category: PHI Storage
 - File: src/dashboard/dashboardService.ts:198
 - Detail: `localStorage.setItem("lastPatientSummary", JSON.stringify(summary))` persists patient name, MRN, and active problem list in unencrypted browser storage. This data survives session close.
-- Guideline: 45 CFR §164.312(a)(2)(iv) — implement encryption for PHI at rest. Browser localStorage is not an appropriate store for PHI.
+- Guideline: Shared US/EU privacy handling — avoid persistent client-side storage of patient data
 
 ### [H-2] Alert banner includes patient name in document title
-- Source: hipaa
+- Source: regulatory
 - Severity: major
 - Category: PHI Exposure
 - File: src/dashboard/AlertBanner.tsx:34
 - Detail: `document.title = \`Alert: ${patient.name} - ${alert.category}\`` sets the browser tab title to include the patient's name. This is visible in screenshots, task switchers, and browser history.
-- Guideline: 45 CFR §164.312(a)(1) — minimize PHI exposure in UI surface areas visible outside the application context.
+- Guideline: Shared US/EU privacy handling — minimize patient identifiers in UI surface areas visible outside the app
 
 ---
 

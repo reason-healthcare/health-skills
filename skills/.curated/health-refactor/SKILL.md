@@ -1,13 +1,13 @@
 ---
 name: health-refactor
-description: Produce a scope-bounded, plan-only refactoring assessment for healthcare codebases. Resolves a bounded file set via git range, file area, or symbol/dependency context, then orchestrates three analysis passes — healthcare-aware code refactoring, human-factors review, and HIPAA audit — into a unified plan with findings and a prioritized checklist. Never modifies code.
+description: Produce a scope-bounded, plan-only refactoring assessment for healthcare codebases. Resolves a bounded file set via git range, file area, or symbol/dependency context, proposes `us`, `eu`, or `us+eu` overlays from evidence, then orchestrates healthcare-aware refactoring, human-factors review, and regulatory review into a unified plan. Never modifies code.
 ---
 
 # Healthcare Refactor Plan
 
 ## Overview
 
-Use this skill to analyze a bounded area of a healthcare codebase and produce a prioritized refactoring plan. The plan combines three analysis lenses: structural code quality (healthcare-aware), human-factors design review, and HIPAA/PHI compliance. Output is a plan document with findings and a checklist — no code is modified.
+Use this skill to analyze a bounded area of a healthcare codebase and produce a prioritized refactoring plan. The plan combines three analysis lenses: structural code quality (healthcare-aware), human-factors design review, and jurisdiction-aware regulatory review. Output is a plan document with findings and a checklist — no code is modified.
 
 ## Operating Rules
 
@@ -55,20 +55,28 @@ If no context mode is provided, ask the user:
 4. Apply **Part 2** (healthcare overrides) to review and adjust any standard findings — suppress false positives where clinical context justifies the current structure, and escalate standard findings that have clinical safety implications.
 5. Read each file in the resolved file set during both passes.
 
-### Step 3: Run Human-Factors Analysis (Composed)
+### Step 3: Determine Jurisdiction Context
+
+1. Read `.health-context.yaml` if it exists and note any stored jurisdiction value.
+2. Check the bounded file set for confirming or conflicting signals using `references/jurisdiction-routing.md`.
+3. Propose one of `us`, `eu`, `us+eu`, or `unclear`.
+4. Record the proposed overlays and a short evidence list in the final plan before dispatching regulatory analysis.
+
+### Step 4: Run Human-Factors Analysis (Composed)
 
 1. Delegate to `$health-human-factors` as a subagent for a **scoped review** of the resolved file list.
 2. Pass the file list as the pre-determined scope.
 3. Collect findings with IDs prefixed `HF-`.
 
-### Step 4: Run HIPAA Analysis (Composed)
+### Step 5: Run Regulatory Analysis (Composed)
 
-1. Delegate to `$health-hipaa-review` as a subagent for a **scoped review** of the resolved file list.
+1. Delegate to `$health-regulatory-review` as a subagent for a **scoped review** of the resolved file list.
 2. Pass the file list as the pre-determined scope.
-3. Collect findings with IDs prefixed `H-`.
-4. Map HIPAA severity levels to the plan's scale: `critical` → critical, `high` → major, `medium` → minor, `low` → minor.
+3. Pass the active jurisdiction overlays from Step 3.
+4. Collect findings with IDs prefixed `H-`.
+5. Map external severity levels to the plan's scale: `critical` → critical, `high` → major, `medium` → minor, `low` → minor.
 
-### Step 5: Produce the Refactor Plan
+### Step 6: Produce the Refactor Plan
 
 Assemble the plan output following the Output Contract below.
 
@@ -76,13 +84,14 @@ Assemble the plan output following the Output Contract below.
 
 - Scope is always bounded. Never analyze the entire codebase.
 - Plan only — do not propose code changes unless the user explicitly requests remediation guidance after reviewing the plan.
-- If a sub-agent (human-factors or HIPAA) produces no findings, note it in the plan and omit the empty findings section for that sub-agent.
-- Sub-agent order matters: refactoring first, then human-factors, then HIPAA.
+- If a sub-agent (human-factors or regulatory review) produces no findings, note it in the plan and omit the empty findings section for that sub-agent.
+- Sub-agent order matters: refactoring first, jurisdiction selection, then human-factors, then regulatory review.
 - For symbol/dependency mode, always include the dependency graph in the Scope section so the user can see what was and was not reviewed.
 
 ## Resources
 
 - `references/refactor-patterns.md`: healthcare-specific refactoring patterns (7 patterns) and clinical overrides to standard refactoring heuristics
+- `references/jurisdiction-routing.md`: evidence patterns for selecting `us`, `eu`, `us+eu`, or `unclear` before composing regulatory review
 - `examples/example-plan-git-range.md`: example plan output for git range context
 - `examples/example-plan-file-area.md`: example plan output for file area context
 - `examples/example-plan-symbol.md`: example plan output for symbol/dependency context
@@ -97,6 +106,7 @@ Return a refactor plan with the following sections:
 - The input provided by the user (range, path, or symbol name)
 - Resolved file list (every file analyzed)
 - For symbol mode: dependency graph showing root, direct imports, and direct importers
+- Proposed jurisdiction overlays with brief supporting evidence
 
 ### Findings
 
@@ -104,7 +114,7 @@ Group findings by source sub-agent. Each finding uses this format:
 
 ```
 ### [{PREFIX}-{n}] {title}
-- Source: refactor | human-factors | hipaa
+- Source: refactor | human-factors | regulatory
 - Severity: critical | major | minor
 - Category: {pattern or review category}
 - File: {path}:{line}

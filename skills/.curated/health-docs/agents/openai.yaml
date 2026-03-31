@@ -1,4 +1,4 @@
 interface:
   display_name: "Healthcare System Documentation"
   short_description: "Audit and consolidate healthcare system docs"
-  default_prompt: "Use $health-docs to audit or consolidate documentation for this healthcare system. To assess coverage (writes only .health-docs/analysis.md), use analyze mode. To consolidate existing docs into a structured hierarchy and fill required gaps, use document mode."
+  default_prompt: "Use $health-docs to audit or consolidate documentation for this healthcare system. To assess coverage (writes only .health-docs/analysis.md), use analyze mode. Reuse `.health-context.yaml` when present and propose `us`, `eu`, or `us+eu` overlays from evidence before regulatory composition."

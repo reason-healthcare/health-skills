@@ -34,6 +34,13 @@ regime_detected:
     confidence: low
     evidence: []
 
+jurisdiction_detected:
+  value: "us"
+  confidence: high
+  evidence:
+    - "HIPAA references in docs/security.md"
+    - "SMART on FHIR scopes in config/oauth.yml:12"
+
 doc_root_detected: "docs/"
 
 coverage:
@@ -157,6 +164,13 @@ regime_detected:
     confidence: low
     evidence: []
 
+jurisdiction_detected:
+  value: "us+eu"
+  confidence: medium
+  evidence:
+    - "SMART on FHIR scopes in config/oauth.yml:12"
+    - "GDPR references in docs/privacy.md:4"
+
 doc_root_detected: "docs/"
 
 coverage:
@@ -179,6 +193,13 @@ coverage:
     sources: []
     regulatory: "ONC 45 CFR §170.315(g)(10)"
     required: true           # ← user confirmed ONC applies
+    confidence: medium
+
+  - dimension: "comply/eu/gdpr/data-roles-and-lawful-basis"
+    status: "absent"
+    sources: []
+    regulatory: "GDPR health-data role documentation"
+    required: true
     confidence: medium
 
   - dimension: "comply/fda/srs"
@@ -220,13 +241,14 @@ requirements:
     "agent-context/domain-context":      true
     "agent-context/constraints":         true
 
-human_review_required:
+  human_review_required:
   - "docs/operate/runbooks/breach-notification.md"
   - "docs/operate/runbooks/dr-recovery.md"
   - "docs/comply/hipaa/risk-analysis.md"
   - "docs/comply/hipaa/risk-management.md"
   - "docs/comply/hipaa/baa-inventory.md"
   - "docs/comply/onc/api-access.md"
+  - "docs/comply/eu/gdpr/data-roles-and-lawful-basis.md"
 
 ---
 

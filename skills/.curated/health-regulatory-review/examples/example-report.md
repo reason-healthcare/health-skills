@@ -4,8 +4,20 @@
 **Date**: 2026-03-15
 **Auditor**: AI-assisted engineering review
 **Target**: MedConnect Patient Portal — v2.4.1
+**Selected overlays**: `us`
 
 > This report is an engineering review, not legal advice, certification, or a formal HIPAA compliance determination.
+
+---
+
+## Overlay Selection
+
+Evidence supporting `us`:
+- HIPAA references in security documentation
+- NPI and US insurer identifiers in patient and claims models
+- SMART on FHIR and USCDI references in integration configs
+
+No meaningful EU regulatory evidence was found in the reviewed scope.
 
 ---
 

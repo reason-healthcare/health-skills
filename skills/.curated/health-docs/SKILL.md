@@ -1,6 +1,6 @@
 ---
 name: health-docs
-description: Audit and consolidate documentation for healthcare engineering systems. Supports two modes — analyze (coverage audit — writes only .health-docs/analysis.md) and document (consolidate existing docs + fill gaps). Detects applicable regulatory regimes (HIPAA, ONC, FDA SaMD) from codebase signals, composes existing skills as subagents for deep-dimension analysis, and produces a structured handoff artifact consumed by document mode.
+description: Audit and consolidate documentation for healthcare engineering systems. Supports two modes — analyze (coverage audit — writes only .health-docs/analysis.md) and document (consolidate existing docs + fill gaps). Detects applicable jurisdiction overlays and regulatory regimes from codebase signals, composes existing skills as subagents for deep-dimension analysis, and produces a structured handoff artifact consumed by document mode.
 ---
 
 # Healthcare System Documentation
@@ -15,7 +15,7 @@ This skill audits what exists, maps it to what's required given the system's reg
 
 ### Mode: analyze
 
-Scan the repository, detect applicable regulatory regimes, assess documentation coverage across seven dimensions, and produce a structured handoff artifact. **No repository files are modified — only `.health-docs/analysis.md` is written.**
+Scan the repository, detect applicable jurisdiction overlays and regulatory regimes, assess documentation coverage across seven dimensions, and produce a structured handoff artifact. **No repository files are modified — only `.health-docs/analysis.md` is written.**
 
 ### Mode: document
 
@@ -38,15 +38,20 @@ Read the handoff artifact from analyze mode, conduct an evidence-informed interv
 
 ## Analyze Mode Workflow
 
-### Pass 1: Broad Scan and Regime Signal Detection
+### Pass 1: Broad Scan and Jurisdiction / Regime Signal Detection
 
 Inventory the repository without subagents:
 
+0. Read `.health-context.yaml` if it exists — this file is created and maintained by the `health-project-context` skill. If it exists, record the stored `jurisdiction`, `confidence`, and `evidence` values before scanning; use them as a prior when synthesizing Pass 1 signals. If the file does not exist, ask the user: "Should I focus on US regulations (HIPAA/ONC/FDA), EU regulations (GDPR/MDR/AI Act/NIS2), or both? I'll detect signals automatically — this helps me prioritize what to look for." Accept `us`, `eu`, `us+eu`, or `unclear` and proceed with the scan.
 1. Find all markdown files at every level (`**/*.md`)
 2. Find all agent instruction files: `AGENTS.md`, `.github/copilot-instructions.md`, `.cursor/rules`, `.cursorrules`, `CLAUDE.md`
 3. Find CI/CD configs: `.github/workflows/`, `Jenkinsfile`, `.circleci/`, `Makefile`
 4. Detect existing documentation root: search for `docs/`, `documentation/`, `wiki/`, `doc/` in that precedence order. Select the first match by precedence (not filesystem order). If multiple directories exist, note the others in the artifact narrative. Record `null` in `doc_root_detected` if none are found.
-5. Scan code and configuration for regime signals using `references/regime-signals.md`:
+5. Scan code and configuration for jurisdiction and regime signals using `references/regime-signals.md`:
+   - US signals → `us` candidate (record confidence level and specific evidence)
+   - EU signals → `eu` candidate
+   - Mixed US and EU signals → `us+eu` candidate
+   - If evidence is too thin or contradictory → `unclear`
    - PHI signals → HIPAA candidate (record confidence level and specific evidence)
    - ONC/EHR API signals → ONC candidate
    - SaMD/AI clinical signals → FDA SaMD candidate
@@ -58,7 +63,7 @@ Invoke available subagents in parallel against the Pass 1 file inventory. Dispat
 
 | Subagent | Condition | Invocation | Coverage dimensions fed |
 |---|---|---|---|
-| `$health-hipaa-review` | PHI signals found (see `references/regime-signals.md`) | "scoped review" + file list | `secure/`, `comply/hipaa/` |
+| `$health-regulatory-review` | Healthcare regulatory or jurisdiction signals found (see `references/regime-signals.md`) | "scoped review" + file list | `secure/`, `comply/` |
 | `$health-fhir-api-design` | FHIR or ONC signals found (FHIR resource types, SMART auth, EHR SDK imports, USCDI references) | "scoped review" + file list | `understand/integrations`, `comply/onc/` |
 | `$health-human-factors` | UI source files found (`.html`, `.tsx`, `.jsx`, `.vue`, `.erb`, or directories matching `app/views/`, `src/components/`, `templates/`) | "scoped review" + file list | `build/testing` |
 
@@ -70,11 +75,18 @@ Each subagent returns a findings report. Translate to coverage dimensions using 
 
 | Subagent | Finding type | Coverage dimension |
 |---|---|---|
-| `$health-hipaa-review` | Access control / session management gaps | `secure/auth-model` |
-| `$health-hipaa-review` | Audit log / retention gaps | `secure/audit-logs` |
-| `$health-hipaa-review` | Encryption at-rest or in-transit gaps | `secure/encryption` |
-| `$health-hipaa-review` | Risk analysis / risk management gaps | `comply/hipaa/risk-analysis`, `comply/hipaa/risk-management` |
-| `$health-hipaa-review` | BAA / business associate documentation gaps | `comply/hipaa/baa-inventory` |
+| `$health-regulatory-review` | Access control / session management gaps | `secure/auth-model` |
+| `$health-regulatory-review` | Audit log / retention gaps | `secure/audit-logs` |
+| `$health-regulatory-review` | Encryption at-rest or in-transit gaps | `secure/encryption` |
+| `$health-regulatory-review` | US HIPAA risk analysis / risk management gaps | `comply/hipaa/risk-analysis`, `comply/hipaa/risk-management` |
+| `$health-regulatory-review` | BAA / business associate documentation gaps | `comply/hipaa/baa-inventory` |
+| `$health-regulatory-review` | EU data roles / lawful basis gaps | `comply/eu/gdpr/data-roles-and-lawful-basis` |
+| `$health-regulatory-review` | EU data subject rights gaps | `comply/eu/gdpr/data-subject-rights` |
+| `$health-regulatory-review` | EU vendor / transfer boundary gaps | `comply/eu/gdpr/vendor-and-transfer-boundaries` |
+| `$health-regulatory-review` | EU NIS2 incident / cyber risk gaps | `comply/eu/nis2/incident-coordination-and-cyber-risk` |
+| `$health-regulatory-review` | EU MDR/IVDR classification / intended use gaps | `comply/eu/mdr-ivdr/classification-and-intended-use` |
+| `$health-regulatory-review` | EU AI Act risk / human oversight gaps | `comply/eu/ai-act/risk-and-human-oversight` |
+| `$health-regulatory-review` | EU EHDS primary-use data exchange gaps | `comply/eu/ehds/primary-use-data-exchange` |
 | `$health-fhir-api-design` | Integration / vendor API documentation gaps | `understand/integrations` |
 | `$health-fhir-api-design` | SMART / bulk API access documentation gaps | `comply/onc/api-access` |
 | `$health-human-factors` | Missing usability test docs / acceptance criteria | `build/testing` |
@@ -83,7 +95,9 @@ For any finding that does not map to a row above, record the gap verbatim in the
 
 ### Pass 3: Synthesize Coverage Matrix
 
-For each documentation dimension in `references/doc-hierarchy.md`, assign a coverage status:
+**Overlay scope note**: The base hierarchy in `references/doc-hierarchy.md` is US-centric — it already contains the primary HIPAA/ONC/FDA targets. The US overlay (`references/us-docs-overlay.md`) supplements but does not replace the base; there are no additional US *dimensions* to enumerate beyond the base hierarchy. The EU overlay (`references/eu-docs-overlay.md`) is additive — it extends the coverage matrix with EU-specific dimensions that do not appear in the base hierarchy. When `us` or `us+eu` is active, enumerate the base hierarchy only. When `eu` or `us+eu` is active, also enumerate all dimensions from the EU overlay.
+
+For each documentation dimension in `references/doc-hierarchy.md`, plus any active EU-specific dimensions from `references/eu-docs-overlay.md`, assign a coverage status:
 
 | Status | Meaning |
 |---|---|
@@ -108,6 +122,7 @@ For each dimension, record:
 Write `.health-docs/analysis.md` with:
 1. YAML frontmatter containing the structured coverage matrix (see Artifact Schema below)
 2. Human-readable narrative body:
+   - Jurisdiction detection summary with evidence
    - Regime detection summary with evidence
    - Coverage findings organized by dimension
    - Conflicts and their sources
@@ -130,9 +145,9 @@ If a `requirements` profile already exists in the artifact (from a previous docu
 
 Present findings from the artifact and ask the user to confirm, not discover.
 
-**Confirmation 1 — Regime:**
-Present the regime signals found with evidence and confidence levels. Example:
-> "I found these indicators: Patient model with MRN and DOB fields (src/models/patient.rb), FHIR R4 resources in src/fhir/, 'phi' in 14 variable names. I'm proposing HIPAA track. Correct?"
+**Confirmation 1 — Jurisdiction and regime:**
+Present the jurisdiction and regime signals found with evidence and confidence levels. Example:
+> "I found these indicators: Patient model with MRN and DOB fields (src/models/patient.rb), SMART on FHIR scopes in config/oauth.yml, and GDPR references in docs/privacy.md. I'm proposing `us+eu` overlays with HIPAA and ONC signals active. Correct?"
 
 **Confirmation 2 — Dimension inclusion:**
 Show a fast-scan list of each dimension with proposed status (INCLUDE / SKIP / REVIEW). The user can override any entry. Mark regulatory-required dimensions that are absent as `INCLUDE ⚠ required`.
@@ -221,6 +236,12 @@ regime_detected:
     confidence: low
     evidence: []
 
+jurisdiction_detected:
+  value: "us"
+  confidence: high
+  evidence:
+    - "NPI and HIPAA references in app/models/patient.rb and docs/security.md"
+
 doc_root_detected: "docs/"   # null if not found
 
 coverage:
@@ -262,10 +283,14 @@ requirements:               # populated after document mode interview
 ## Resources
 
 - `references/doc-hierarchy.md`: canonical seven-dimension documentation tree with target file paths, audience notes, and minimum required files
-- `references/regime-signals.md`: PHI, ONC, and FDA SaMD signal patterns for Pass 1 detection
-- `references/regulatory-mapping.md`: dimension → regulatory requirement mapping with classification (required / addressable / recommended)
+- `references/regime-signals.md`: jurisdiction, PHI, ONC, and FDA SaMD signal patterns for Pass 1 detection
+- `references/regulatory-mapping.md`: dimension → regulatory requirement mapping with classification (required / addressable / recommended), plus overlay notes
+- `references/us-docs-overlay.md`: US-oriented documentation expectations layered on top of the base hierarchy
+- `references/eu-docs-overlay.md`: EU-oriented documentation expectations layered on top of the base hierarchy
 - `examples/example-analysis.md`: sample analyze mode output narrative
+- `examples/example-analysis-multi-market.md`: sample analyze mode output showing concurrent `us+eu` overlays
 - `examples/example-analysis-artifact.md`: sample `.health-docs/analysis.md` showing YAML structure pre- and post-interview
+- `examples/example-document-plan.md`: sample document-mode pre-flight plan showing EU compliance outputs and human-review marking
 
 ## Output Contract
 
@@ -279,6 +304,4 @@ requirements:               # populated after document mode interview
 - Appends to `.health-docs/runs/YYYY-MM-DD.md` with run record
 - Does not modify code, tests, or configurations
 - Does not delete original files — flags them for human-reviewed cleanup
-
-
 
