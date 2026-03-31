@@ -109,7 +109,7 @@ The first curated categories for this repository are:
 1. Healthcare product discovery (`health-product-discovery`)
 2. Clinical and workflow-aware experience design (`health-human-factors`)
 3. Interoperability and FHIR-informed API design (`health-fhir-api-design`)
-4. Security, privacy, and HIPAA-aware delivery (`health-hipaa-review`)
+4. Security, privacy, and HIPAA-aware delivery (`health-regulatory-review`)
 5. Operational readiness and healthcare product quality
 6. Healthcare codebase refactoring and code quality (`health-refactor`)
 
@@ -120,7 +120,7 @@ Orchestrating skills can compose existing report-only skills by invoking them in
 - **Standalone (default)** — existing behavior, triggered directly by users
 - **Scoped** — triggered by an orchestrating skill with a pre-determined file list; returns findings-only output without interactive scope confirmation or executive summary
 
-`health-human-factors` and `health-hipaa-review` both support scoped invocation. `health-refactor` uses this pattern to compose all three analysis lenses into a single bounded plan. When building a new orchestrating skill, check whether the target skills support scoped mode before embedding duplicate logic.
+`health-human-factors` and `health-regulatory-review` both support scoped invocation. `health-refactor` uses this pattern to compose all three analysis lenses into a single bounded plan. When building a new orchestrating skill, check whether the target skills support scoped mode before embedding duplicate logic.
 
 ## Progressive Disclosure
 

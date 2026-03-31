@@ -75,11 +75,11 @@ The `health-human-factors` skill SHALL include a scoped invocation mode section 
 - **THEN** an Invocation Modes section describes both standalone and scoped modes
 - **THEN** the scoped mode specifies input (file list), behavior (skip scope confirmation), and output (findings with `HF-` prefix)
 
-### Requirement: health-hipaa-review supports scoped invocation mode
-The `health-hipaa-review` skill SHALL include a scoped invocation mode section in its SKILL.md.
+### Requirement: health-regulatory-review supports scoped invocation mode
+The `health-regulatory-review` skill SHALL include a scoped invocation mode section in its SKILL.md.
 
 #### Scenario: Scoped invocation is documented in SKILL.md
-- **WHEN** a consumer or orchestrating skill reads the `health-hipaa-review` SKILL.md
+- **WHEN** a consumer or orchestrating skill reads the `health-regulatory-review` SKILL.md
 - **THEN** an Invocation Modes section describes both standalone and scoped modes
 - **THEN** the scoped mode specifies input (file list), behavior (skip scope confirmation), and output (findings with `H-` prefix)
 

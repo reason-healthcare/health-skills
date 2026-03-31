@@ -1,9 +1,9 @@
 ---
-name: health-hipaa-review
-description: Produce a report-only HIPAA, PHI, and PII audit for healthcare codebases and delivery systems. Inspects code, configs, data flows, integrations, logging, and deployment boundaries for privacy and security gaps without modifying code.
+name: health-regulatory-review
+description: Produce a report-only healthcare regulatory review for codebases and delivery systems, with primary focus on HIPAA, PHI, and PII handling. Inspects code, configs, data flows, integrations, logging, and deployment boundaries for privacy and security gaps without modifying code.
 ---
 
-# HIPAA Code Audit
+# Healthcare Regulatory Review
 
 ## Overview
 

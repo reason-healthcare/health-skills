@@ -45,7 +45,7 @@ Each skill works independently — invoke any one in isolation for its specific 
 ├─────────────────────────────────────────────────────────────┤
 │ ┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐ │ 
 │ │ Health          │ │ Health          │ │ Health          │ │
-│ │ Refactor        │ │ HIPAA Review    │ │ Human Factors   │ │
+│ │ Refactor        │ │ Regulatory Rev. │ │ Human Factors   │ │
 │ └─────────────────┘ └─────────────────┘ └─────────────────┘ │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -64,7 +64,7 @@ Design FHIR R4 API interactions — search queries, operations (`$`), validation
 
 Map domain concepts to FHIR R4 resources and understand profile compliance. Select the right base resources, read US Core and QI Core constraints, model relationships, find existing extensions, and apply terminology bindings (LOINC, SNOMED CT, RxNorm). Outputs annotated example instances — for app developers, not profile authors.
 
-### [`health-hipaa-review`](skills/.curated/health-hipaa-review)
+### [`health-regulatory-review`](skills/.curated/health-regulatory-review)
 
 Produce a report-only HIPAA, PHI, and PII audit for healthcare codebases and delivery systems. Inspects code, configs, data flows, integrations, logging, and deployment boundaries for privacy and security gaps without modifying code.
 
