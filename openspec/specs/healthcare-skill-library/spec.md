@@ -103,3 +103,11 @@ The healthcare skill library SHALL standardize `.health-context.yaml` as the reu
 - **WHEN** a healthcare skill needs jurisdiction, audience, or project-stage context and `.health-context.yaml` is present
 - **THEN** the skill may use the artifact as its default context source
 - **THEN** the skill still allows override when task-specific evidence or user input conflicts with the stored values
+
+### Requirement: FHIR modeling skill is available in the experimental library
+The repository SHALL include a `health-fhir-modeling` skill in `skills/.experimental/` for software developers who need to map domain concepts to FHIR R4 resources and understand profile compliance requirements.
+
+#### Scenario: FHIR modeling skill is discoverable
+- **WHEN** a developer inspects the skill library
+- **THEN** a skill named `health-fhir-modeling` exists in `skills/.experimental/`
+- **THEN** the skill is listed in README.md and DEVELOPER.md under experimental skills
