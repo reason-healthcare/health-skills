@@ -38,10 +38,11 @@ The persisted artifact updates:
 ```yaml
 primary_audience:
   value: mixed
-  confidence: medium
+  confidence: high
   evidence:
     - "Clinician-facing workflows in app/views/"
     - "Patient portal routes in portal/src/"
+    - "User confirmed the audience should be treated as mixed"
 ```
 
 `confirmed_by_user` is set to `true`.

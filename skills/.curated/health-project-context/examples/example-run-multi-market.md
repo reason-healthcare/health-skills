@@ -47,10 +47,11 @@ jurisdiction:
 
 primary_audience:
   value: mixed
-  confidence: medium
+  confidence: high
   evidence:
     - "Clinician workflow components in app/views/"
     - "Patient portal routes in portal/src/"
+    - "User confirmed both audiences are first-class"
 ```
 
 `confirmed_by_user` is set to `true`.

@@ -115,6 +115,7 @@ confirmed_by_user: true
 Rules:
 - Each field object MUST include `value`, `confidence`, and `evidence`.
 - `confidence` should be `high`, `medium`, or `low`.
+- If a field value was explicitly accepted, corrected, or supplied by the user during the confirmation step, persist that field with `confidence: high` because user confirmation is the strongest signal this schema supports.
 - `evidence` should contain short, concrete, source-backed statements.
 - `confirmed_by_user` is `true` only after the proposed values were accepted or corrected by the user.
 

@@ -75,7 +75,7 @@ jurisdiction:
 
 primary_audience:
   value: provider
-  confidence: medium
+  confidence: high
   evidence:
     - "Clinician workflow language in app/views/"
     - "Patient portal exists in portal/src/ but is pilot-only per user confirmation"

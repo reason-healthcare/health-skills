@@ -10,9 +10,10 @@ jurisdiction:
 
 primary_audience:
   value: provider
-  confidence: medium
+  confidence: high
   evidence:
     - "Clinician-facing chart review and order entry workflows in app/views/"
+    - "User confirmed provider is the primary audience"
     - "Role names include physician, nurse, and care coordinator"
 
 project_stage:
