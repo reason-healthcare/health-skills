@@ -34,8 +34,8 @@ Each skill works independently — invoke any one in isolation for its specific 
 │   Planning            │
 ├───────────────────────┤
 │ ┌───────────────────┐ │ ◀─────────────────────────┐
-│ │ Health            │ │                           │
-│ │ Product Discovery │ │                           │
+│ │ Health Init       │ │                           │
+│ │ (new or exist)    │ │                           │
 │ └───────────────────┘ │                           │
 └───────────────────────┘                           │
           │                                         │
@@ -66,7 +66,7 @@ Each skill works independently — invoke any one in isolation for its specific 
 
 ---
 
-### [`health-project-context`](skills/.experimental/health-project-context)
+### [`health-init`](skills/.curated/health-init)
 
 Bootstrap reusable healthcare project context from repository evidence. Infers jurisdiction, primary audience, and whether the repo is greenfield or existing, then persists that context in `.health-context.yaml` for future skills.
 

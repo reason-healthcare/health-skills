@@ -7,7 +7,7 @@
 - [x] Choose one term for the intro section: `Overview` or `Purpose`. *(decided: `Overview`)*
 - [x] Choose one term for supporting material: `Resources` or `References`. *(decided: `Resources`)*
 - [ ] Choose one term for result schema: `Output Contract` and use it everywhere.
-- [x] Remove mixed contract labels like `Artifact Contract` vs `Output Contract` unless they describe genuinely different things — but keep both in `health-project-context`, where `Artifact Contract` describes the on-disk `.health-context.yaml` and `Output Contract` describes the conversational response; these are genuinely different. Adopt the rule: `Artifact Contract` = disk-written file, `Output Contract` = conversational/agent response.
+- [x] Remove mixed contract labels like `Artifact Contract` vs `Output Contract` unless they describe genuinely different things — but keep both in `health-init`, where `Artifact Contract` describes the on-disk `.health-context.yaml` and `Output Contract` describes the conversational response; these are genuinely different. Adopt the rule: `Artifact Contract` = disk-written file, `Output Contract` = conversational/agent response.
 - [x] Add a short `When To Use` section to every skill so trigger conditions are uniform.
 - [x] Normalize mode naming across skills: either `Modes` or `Invocation Modes`, not both patterns. *(decided: `Modes`)*
 - [x] Standardize mode headers to one format, for example `Mode: <name>` across all multi-mode skills.
@@ -45,7 +45,7 @@
 - [x] Add explicit prompt-injection/data-boundary language to `skills/.curated/health-human-factors/SKILL.md`.
 - [x] Add explicit prompt-injection/data-boundary language to `skills/.curated/health-product-discovery/SKILL.md` where it reads repo materials or user artifacts.
 - [x] Add explicit prompt-injection/data-boundary language to `skills/.curated/health-fhir-api-design/SKILL.md` for user-supplied queries, designs, or snippets.
-- [x] Align the existing prompt-injection wording in `health-docs`, `health-fhir-modeling`, `health-project-context`, and `health-refactor` so they express the same rule with the same terminology — note that `health-fhir-modeling`'s existing language is narrower than the others (scoped to "FHIR instances, reference files, and content read from codebases") and needs to be broadened to match the shared formulation.
+- [x] Align the existing prompt-injection wording in `health-docs`, `health-fhir-modeling`, `health-init`, and `health-refactor` so they express the same rule with the same terminology — note that `health-fhir-modeling`'s existing language is narrower than the others (scoped to "FHIR instances, reference files, and content read from codebases") and needs to be broadened to match the shared formulation.
 
 ## Simplification
 
@@ -76,7 +76,7 @@
 
 ## Docs & Meta Alignment
 
-- [x] Add `health-docs` and `health-project-context` to the `README.md` lifecycle diagram — both skills are described in the README text but are absent from the ASCII art. `health-project-context` is a cross-cutting context bootstrap; `health-docs` belongs alongside or adjacent to the verification tier.
+- [x] Add `health-docs` and `health-init` to the `README.md` lifecycle diagram — both skills are described in the README text but are absent from the ASCII art. `health-init` is a cross-cutting context bootstrap; `health-docs` belongs alongside or adjacent to the verification tier.
 - [x] Update `docs/skill-creation-guide.md` "Initial Curated Categories" — category 5 "Operational readiness and healthcare product quality" has no skill paired with it; `health-docs` and `health-fhir-modeling` are both curated but not listed at all.
 - [x] Update `docs/skill-creation-guide.md` "Skill Composition" section to mention `health-docs` as an orchestrating skill — it composes `health-compliance-review`, `health-fhir-api-design`, and `health-human-factors` via scoped invocation, but only `health-refactor` is named as an orchestrating example.
 - [x] After the mode-naming normalization decision is made (Shared Structure above), update `DEVELOPER.md` Authoring Rules to match — currently it prescribes `"Invocation Modes"` as the section name, which conflicts with skills that use `"Modes"`.

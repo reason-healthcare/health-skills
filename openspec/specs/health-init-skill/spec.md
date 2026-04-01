@@ -5,11 +5,11 @@ Defines the repository bootstrap skill that derives reusable healthcare project 
 ## Requirements
 
 ### Requirement: Skill exists in the experimental skill library
-The repository SHALL include a `health-project-context` skill at `skills/.experimental/health-project-context/`.
+The repository SHALL include a `health-init` skill at `skills/.experimental/health-init/`.
 
 #### Scenario: Skill directory is present
 - **WHEN** a maintainer inspects `skills/.experimental/`
-- **THEN** a `health-project-context/` directory exists containing `SKILL.md`, `agents/openai.yaml`, `references/jurisdiction-signals.md`, `references/audience-signals.md`, `references/stage-signals.md`, and at least one example artifact showing `.health-context.yaml`
+- **THEN** a `health-init/` directory exists containing `SKILL.md`, `agents/openai.yaml`, `references/jurisdiction-signals.md`, `references/audience-signals.md`, `references/stage-signals.md`, and at least one example artifact showing `.health-context.yaml`
 
 ### Requirement: Skill infers jurisdiction from repository evidence
 The skill SHALL inspect the target repository and classify jurisdiction as `us`, `eu`, `us+eu`, or `unclear`, recording confidence and evidence for the selected value.

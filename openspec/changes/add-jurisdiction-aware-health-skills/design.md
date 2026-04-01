@@ -6,7 +6,7 @@ The curated healthcare skills in this repository currently lean US-first even wh
 - `health-compliance-review` has been renamed away from `health-hipaa-review`, but its current emphasis is still primarily HIPAA and adjacent US privacy/security review
 - `health-docs` and `health-refactor` compose regulatory analysis without a shared jurisdiction-selection model
 
-This change is cross-cutting because it affects multiple curated skills, their reference materials, and the composition rules between them. It also needs to coexist with the new shared `.health-context.yaml` pattern introduced by `health-project-context`, so jurisdiction can be reused when a prior skill has already inferred and persisted it.
+This change is cross-cutting because it affects multiple curated skills, their reference materials, and the composition rules between them. It also needs to coexist with the new shared `.health-context.yaml` pattern introduced by `health-init`, so jurisdiction can be reused when a prior skill has already inferred and persisted it.
 
 The product-discovery portion of the change needs more than a generic “add EU support” statement. EU healthcare product discovery is shaped by market structure and operating constraints that differ materially from a US-default frame:
 
@@ -34,7 +34,7 @@ The design therefore needs to separate jurisdiction-neutral discovery guidance f
 - Replacing downstream human judgment for legal, reimbursement, or regulatory decisions
 - Introducing new persistent artifacts beyond those already used by the skills involved
 - Turning each jurisdiction overlay into a separate standalone curated skill in this change
-- Expanding `health-project-context` schema in this change
+- Expanding `health-init` schema in this change
 
 ## Decisions
 

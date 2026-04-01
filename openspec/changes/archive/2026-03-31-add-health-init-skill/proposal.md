@@ -4,7 +4,7 @@ Healthcare-oriented skills repeatedly need the same top-level project context be
 
 ## What Changes
 
-- Add a new `health-project-context` skill that inspects a target repository, gathers evidence, and determines three reusable context fields: jurisdiction (`US`, `EU`, `US+EU`, or `unclear`), primary audience (`provider`, `patient`, `payer`, `administrative`, `other`, or `mixed`), and project stage (`greenfield`, `existing`, or `unclear`).
+- Add a new `health-init` skill that inspects a target repository, gathers evidence, and determines three reusable context fields: jurisdiction (`US`, `EU`, `US+EU`, or `unclear`), primary audience (`provider`, `patient`, `payer`, `administrative`, `other`, or `mixed`), and project stage (`greenfield`, `existing`, or `unclear`).
 - The skill writes a durable root-level context artifact in the target repository so future healthcare skills can reuse confirmed context instead of re-deriving it from scratch.
 - The skill treats `project stage` as agent-determined from repository evidence rather than a required user prompt, while still allowing override when the evidence is mixed.
 - The skill records confidence and evidence for each inferred field so downstream skills can decide when to trust the stored answer versus when to ask for confirmation.
@@ -14,7 +14,7 @@ Healthcare-oriented skills repeatedly need the same top-level project context be
 
 ### New Capabilities
 
-- `health-project-context-skill`: A repository bootstrap skill that infers healthcare project context from repo evidence, persists it in a root-level artifact, and exposes jurisdiction, audience, and project-stage signals for downstream skills.
+- `health-init-skill`: A repository bootstrap skill that infers healthcare project context from repo evidence, persists it in a root-level artifact, and exposes jurisdiction, audience, and project-stage signals for downstream skills.
 
 ### Modified Capabilities
 
@@ -22,7 +22,7 @@ Healthcare-oriented skills repeatedly need the same top-level project context be
 
 ## Impact
 
-- New skill directory added at `skills/.experimental/health-project-context/`
+- New skill directory added at `skills/.experimental/health-init/`
 - New artifact contract for a root-level persistent context file in target repositories
 - New references and examples for jurisdiction detection, audience inference, and repository stage detection
 - README and DEVELOPER.md updated with the new skill entry when implemented

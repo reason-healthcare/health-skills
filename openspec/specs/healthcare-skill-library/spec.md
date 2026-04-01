@@ -84,11 +84,11 @@ The `health-compliance-review` skill SHALL include a scoped invocation mode sect
 - **THEN** the scoped mode specifies input (file list), behavior (skip scope confirmation), and output (findings with `H-` prefix)
 
 ### Requirement: Project context bootstrap skill is available in the experimental library
-The repository SHALL include a `health-project-context` skill in `skills/.experimental/` for deriving reusable healthcare project context from repository evidence.
+The repository SHALL include a `health-init` skill in `skills/.experimental/` for deriving reusable healthcare project context from repository evidence.
 
 #### Scenario: Project context skill is discoverable
 - **WHEN** a contributor inspects the skill library
-- **THEN** a skill named `health-project-context` exists in `skills/.experimental/`
+- **THEN** a skill named `health-init` exists in `skills/.experimental/`
 - **THEN** the skill is listed in README.md and DEVELOPER.md under experimental skills when implemented
 
 ### Requirement: Shared healthcare project context artifact is standardized

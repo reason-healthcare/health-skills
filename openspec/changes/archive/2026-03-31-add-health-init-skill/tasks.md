@@ -1,9 +1,9 @@
 ## 1. Scaffold Skill Directory
 
-- [x] 1.1 Run `python3 scripts/init_skill.py health-project-context --group .experimental --description "derive reusable healthcare project context from repository evidence"` to scaffold the skill directory
-- [x] 1.2 Verify `skills/.experimental/health-project-context/` was created with `SKILL.md` and `agents/openai.yaml`
-- [x] 1.3 Create `skills/.experimental/health-project-context/references/` with placeholder files: `jurisdiction-signals.md`, `audience-signals.md`, `stage-signals.md`
-- [x] 1.4 Create `skills/.experimental/health-project-context/examples/` with a placeholder example artifact showing `.health-context.yaml`
+- [x] 1.1 Run `python3 scripts/init_skill.py health-init --group .experimental --description "derive reusable healthcare project context from repository evidence"` to scaffold the skill directory
+- [x] 1.2 Verify `skills/.experimental/health-init/` was created with `SKILL.md` and `agents/openai.yaml`
+- [x] 1.3 Create `skills/.experimental/health-init/references/` with placeholder files: `jurisdiction-signals.md`, `audience-signals.md`, `stage-signals.md`
+- [x] 1.4 Create `skills/.experimental/health-init/examples/` with a placeholder example artifact showing `.health-context.yaml`
 
 ## 2. Write Reference Files
 
@@ -27,9 +27,9 @@
 
 ## 5. Update Agent Metadata And Repository Docs
 
-- [x] 5.1 Update `skills/.experimental/health-project-context/agents/openai.yaml` with accurate name, description, and tool permissions for a read-heavy skill that writes only `.health-context.yaml`
-- [x] 5.2 Add `health-project-context` to `README.md` in the skills listing with a concise description consistent with the rest of the library
-- [x] 5.3 Add `health-project-context` to `DEVELOPER.md` under experimental skills
+- [x] 5.1 Update `skills/.experimental/health-init/agents/openai.yaml` with accurate name, description, and tool permissions for a read-heavy skill that writes only `.health-context.yaml`
+- [x] 5.2 Add `health-init` to `README.md` in the skills listing with a concise description consistent with the rest of the library
+- [x] 5.3 Add `health-init` to `DEVELOPER.md` under experimental skills
 - [x] 5.4 Update `docs/skill-creation-guide.md` if needed to mention reusable context artifacts as a valid healthcare skill pattern
 
 ## 6. Validate And Verify
