@@ -24,7 +24,7 @@ Each skill works independently — invoke any one in isolation for its specific 
 │   Bootstrap (new or exist project)      │
 ├─────────────────────────────────────────┤
 │ ┌─────────────────────────────────────┐ │
-│ │ Health Project Context              │ │ 
+│ │ Health Init                         │ │
 │ │ (persists .health-context.yaml)     │ │
 │ └─────────────────────────────────────┘ │
 └─────────────────────────────────────────┘
