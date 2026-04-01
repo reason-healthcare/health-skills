@@ -47,9 +47,9 @@ The skill SHALL dispatch three analysis passes over the resolved file set: a ref
 - **THEN** the skill invokes `health-human-factors` in scoped invocation mode, passing the file list
 - **THEN** the human-factors analysis produces findings with IDs prefixed `HF-`
 
-#### Scenario: HIPAA analysis composes health-regulatory-review skill
+#### Scenario: HIPAA analysis composes health-compliance-review skill
 - **WHEN** the file set is resolved
-- **THEN** the skill invokes `health-regulatory-review` in scoped invocation mode, passing the file list
+- **THEN** the skill invokes `health-compliance-review` in scoped invocation mode, passing the file list
 - **THEN** the HIPAA analysis produces findings with IDs prefixed `H-`
 
 #### Scenario: Analyses run in defined order

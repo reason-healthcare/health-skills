@@ -31,7 +31,7 @@ Found FDA SaMD indicators (none):
 ### Subagent Dispatch
 
 Dispatching to available subagents in parallel:
-- `$health-regulatory-review` (scoped) — healthcare regulatory signals detected ✓
+- `$health-compliance-review` (scoped) — healthcare regulatory signals detected ✓
 - `$health-fhir-api-design` (scoped) — FHIR signals detected ✓
 - `$health-human-factors` — no UI files detected, skipping
 

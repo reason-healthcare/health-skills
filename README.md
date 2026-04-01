@@ -45,7 +45,7 @@ Each skill works independently — invoke any one in isolation for its specific 
 ├─────────────────────────────────────────────────────────────┤
 │ ┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐ │ 
 │ │ Health          │ │ Health          │ │ Health          │ │
-│ │ Refactor        │ │ Regulatory Rev. │ │ Human Factors   │ │
+│ │ Refactor        │ │ Compliance Rev. │ │ Human Factors   │ │
 │ └─────────────────┘ └─────────────────┘ └─────────────────┘ │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -64,9 +64,9 @@ Design FHIR R4 API interactions — search queries, operations (`$`), validation
 
 Map domain concepts to FHIR R4 resources and understand profile compliance. Select the right base resources, read US Core and QI Core constraints, model relationships, find existing extensions, and apply terminology bindings (LOINC, SNOMED CT, RxNorm). Outputs annotated example instances — for app developers, not profile authors.
 
-### [`health-regulatory-review`](skills/.curated/health-regulatory-review)
+### [`health-compliance-review`](skills/.curated/health-compliance-review)
 
-Produce a report-only healthcare regulatory review for codebases and delivery systems. Selects `us`, `eu`, or `us+eu` overlays from repository evidence, then inspects code, configs, data flows, integrations, logging, and deployment boundaries for privacy and security gaps without modifying code.
+Audit, validate, and enforce regulatory and security controls in healthcare codebases and delivery systems. Selects `us`, `eu`, or `us+eu` overlays from repository evidence, then delivers deterministic findings across regulatory compliance and security control areas without modifying code.
 
 ### [`health-human-factors`](skills/.curated/health-human-factors)
 

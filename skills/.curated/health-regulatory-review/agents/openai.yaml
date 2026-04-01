@@ -1,4 +1,0 @@
-interface:
-  display_name: "Healthcare Regulatory Review"
-  short_description: "Report US/EU healthcare regulatory gaps in code"
-  default_prompt: "Use $health-regulatory-review to inspect a healthcare codebase or delivery system and produce a report-only healthcare regulatory review. Select `us`, `eu`, or `us+eu` overlays from evidence instead of assuming HIPAA-only scope."

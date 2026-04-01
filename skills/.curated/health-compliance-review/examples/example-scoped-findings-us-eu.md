@@ -1,6 +1,6 @@
 # Scoped Regulatory Findings — Multi-Market Example
 
-Used by orchestrating skills when `health-regulatory-review` is invoked in scoped mode with `us+eu` overlays.
+Used by orchestrating skills when `health-compliance-review` is invoked in scoped mode with `us+eu` overlays.
 
 ```md
 ### [H-1] Full patient export sent to analytics processor

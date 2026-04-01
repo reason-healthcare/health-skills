@@ -63,7 +63,7 @@ Invoke available subagents in parallel against the Pass 1 file inventory. Dispat
 
 | Subagent | Condition | Invocation | Coverage dimensions fed |
 |---|---|---|---|
-| `$health-regulatory-review` | Healthcare regulatory or jurisdiction signals found (see `references/regime-signals.md`) | "scoped review" + file list | `secure/`, `comply/` |
+| `$health-compliance-review` | Healthcare regulatory or jurisdiction signals found (see `references/regime-signals.md`) | "scoped review" + file list | `secure/`, `comply/` |
 | `$health-fhir-api-design` | FHIR or ONC signals found (FHIR resource types, SMART auth, EHR SDK imports, USCDI references) | "scoped review" + file list | `understand/integrations`, `comply/onc/` |
 | `$health-human-factors` | UI source files found (`.html`, `.tsx`, `.jsx`, `.vue`, `.erb`, or directories matching `app/views/`, `src/components/`, `templates/`) | "scoped review" + file list | `build/testing` |
 
@@ -75,18 +75,18 @@ Each subagent returns a findings report. Translate to coverage dimensions using 
 
 | Subagent | Finding type | Coverage dimension |
 |---|---|---|
-| `$health-regulatory-review` | Access control / session management gaps | `secure/auth-model` |
-| `$health-regulatory-review` | Audit log / retention gaps | `secure/audit-logs` |
-| `$health-regulatory-review` | Encryption at-rest or in-transit gaps | `secure/encryption` |
-| `$health-regulatory-review` | US HIPAA risk analysis / risk management gaps | `comply/hipaa/risk-analysis`, `comply/hipaa/risk-management` |
-| `$health-regulatory-review` | BAA / business associate documentation gaps | `comply/hipaa/baa-inventory` |
-| `$health-regulatory-review` | EU data roles / lawful basis gaps | `comply/eu/gdpr/data-roles-and-lawful-basis` |
-| `$health-regulatory-review` | EU data subject rights gaps | `comply/eu/gdpr/data-subject-rights` |
-| `$health-regulatory-review` | EU vendor / transfer boundary gaps | `comply/eu/gdpr/vendor-and-transfer-boundaries` |
-| `$health-regulatory-review` | EU NIS2 incident / cyber risk gaps | `comply/eu/nis2/incident-coordination-and-cyber-risk` |
-| `$health-regulatory-review` | EU MDR/IVDR classification / intended use gaps | `comply/eu/mdr-ivdr/classification-and-intended-use` |
-| `$health-regulatory-review` | EU AI Act risk / human oversight gaps | `comply/eu/ai-act/risk-and-human-oversight` |
-| `$health-regulatory-review` | EU EHDS primary-use data exchange gaps | `comply/eu/ehds/primary-use-data-exchange` |
+| `$health-compliance-review` | Access control / session management gaps | `secure/auth-model` |
+| `$health-compliance-review` | Audit log / retention gaps | `secure/audit-logs` |
+| `$health-compliance-review` | Encryption at-rest or in-transit gaps | `secure/encryption` |
+| `$health-compliance-review` | US HIPAA risk analysis / risk management gaps | `comply/hipaa/risk-analysis`, `comply/hipaa/risk-management` |
+| `$health-compliance-review` | BAA / business associate documentation gaps | `comply/hipaa/baa-inventory` |
+| `$health-compliance-review` | EU data roles / lawful basis gaps | `comply/eu/gdpr/data-roles-and-lawful-basis` |
+| `$health-compliance-review` | EU data subject rights gaps | `comply/eu/gdpr/data-subject-rights` |
+| `$health-compliance-review` | EU vendor / transfer boundary gaps | `comply/eu/gdpr/vendor-and-transfer-boundaries` |
+| `$health-compliance-review` | EU NIS2 incident / cyber risk gaps | `comply/eu/nis2/incident-coordination-and-cyber-risk` |
+| `$health-compliance-review` | EU MDR/IVDR classification / intended use gaps | `comply/eu/mdr-ivdr/classification-and-intended-use` |
+| `$health-compliance-review` | EU AI Act risk / human oversight gaps | `comply/eu/ai-act/risk-and-human-oversight` |
+| `$health-compliance-review` | EU EHDS primary-use data exchange gaps | `comply/eu/ehds/primary-use-data-exchange` |
 | `$health-fhir-api-design` | Integration / vendor API documentation gaps | `understand/integrations` |
 | `$health-fhir-api-design` | SMART / bulk API access documentation gaps | `comply/onc/api-access` |
 | `$health-human-factors` | Missing usability test docs / acceptance criteria | `build/testing` |

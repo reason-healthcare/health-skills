@@ -26,7 +26,7 @@ Current curated skills on disk:
 
 - `health-fhir-api-design`
 - `health-fhir-modeling`
-- `health-regulatory-review`
+- `health-compliance-review`
 - `health-human-factors`
 - `health-product-discovery`
 - `health-refactor`

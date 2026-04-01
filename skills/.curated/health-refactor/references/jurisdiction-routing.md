@@ -1,6 +1,6 @@
 # Jurisdiction Routing
 
-Use this reference before composing `health-regulatory-review`.
+Use this reference before composing `health-compliance-review`.
 
 ## Routing Order
 

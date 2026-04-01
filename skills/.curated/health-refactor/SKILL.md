@@ -70,7 +70,7 @@ If no context mode is provided, ask the user:
 
 ### Step 5: Run Regulatory Analysis (Composed)
 
-1. Delegate to `$health-regulatory-review` as a subagent for a **scoped review** of the resolved file list.
+1. Delegate to `$health-compliance-review` as a subagent for a **scoped review** of the resolved file list.
 2. Pass the file list as the pre-determined scope.
 3. Pass the active jurisdiction overlays from Step 3.
 4. Collect findings with IDs prefixed `H-`.

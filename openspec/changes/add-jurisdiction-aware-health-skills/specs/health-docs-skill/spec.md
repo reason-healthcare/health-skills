@@ -11,7 +11,7 @@ The skill SHALL scan a target repository, produce a structured coverage audit ac
 
 #### Scenario: Analyze mode delegates to available subagents in parallel
 - **WHEN** regime or jurisdiction signals are detected and relevant subagents are installed
-- **THEN** `$health-regulatory-review` is invoked in scoped mode when healthcare regulatory analysis is needed, using the active `us`, `eu`, or `us+eu` overlays
+- **THEN** `$health-compliance-review` is invoked in scoped mode when healthcare regulatory analysis is needed, using the active `us`, `eu`, or `us+eu` overlays
 - **THEN** `$health-fhir-api-design` is invoked in scoped mode if FHIR resource types, SMART on FHIR auth patterns, EHR vendor SDK imports, or USCDI field references are found
 - **THEN** `$health-human-factors` is invoked in scoped mode if UI source files are found (`.html`, `.tsx`, `.jsx`, `.vue`, `.erb`, or directories matching `app/views/`, `src/components/`, `templates/`)
 - **THEN** subagent invocations that do not depend on each other are dispatched in parallel

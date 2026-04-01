@@ -3,7 +3,7 @@
 The curated healthcare skills in this repository currently lean US-first even when the skill name sounds general. That bias shows up in different ways across the library:
 
 - `health-product-discovery` bakes US-style reimbursement, buyer, and procurement assumptions directly into the core discovery flow
-- `health-regulatory-review` has been renamed away from `health-hipaa-review`, but its current emphasis is still primarily HIPAA and adjacent US privacy/security review
+- `health-compliance-review` has been renamed away from `health-hipaa-review`, but its current emphasis is still primarily HIPAA and adjacent US privacy/security review
 - `health-docs` and `health-refactor` compose regulatory analysis without a shared jurisdiction-selection model
 
 This change is cross-cutting because it affects multiple curated skills, their reference materials, and the composition rules between them. It also needs to coexist with the new shared `.health-context.yaml` pattern introduced by `health-project-context`, so jurisdiction can be reused when a prior skill has already inferred and persisted it.
@@ -25,7 +25,7 @@ The design therefore needs to separate jurisdiction-neutral discovery guidance f
 - Make jurisdiction selection explicit, evidence-backed, and reusable across healthcare skills
 - Refactor `health-product-discovery` so its base workflow stays jurisdiction-neutral and region-specific market assumptions move into references
 - Define a concrete EU product-discovery overlay that covers product and market-access concerns, not just regulation names
-- Extend `health-regulatory-review`, `health-docs`, and `health-refactor` so they can select `US`, `EU`, `US+EU`, or `unclear` overlays from evidence
+- Extend `health-compliance-review`, `health-docs`, and `health-refactor` so they can select `US`, `EU`, `US+EU`, or `unclear` overlays from evidence
 - Reuse `.health-context.yaml` when present so repeated runs do not re-derive the same jurisdiction context without cause
 - Preserve current skill ergonomics by avoiding a fork into separate top-level `health-product-discovery-us` and `health-product-discovery-eu` skills
 
@@ -84,24 +84,24 @@ The base skill continues to own generic discovery stages such as problem framing
 
 ### Decision 4: Keep existing top-level skills and attach overlays through each skill's references
 
-**Decision**: `health-regulatory-review`, `health-docs`, and `health-refactor` remain the top-level skills. Jurisdiction-specific behavior lives in reference overlays owned by each skill rather than in new `-eu` skill directories. `health-regulatory-review` is still the shared downstream regulatory analysis skill used by `health-docs` and `health-refactor`, but its US and EU paths should be implemented as explicit per-skill overlays.
+**Decision**: `health-compliance-review`, `health-docs`, and `health-refactor` remain the top-level skills. Jurisdiction-specific behavior lives in reference overlays owned by each skill rather than in new `-eu` skill directories. `health-compliance-review` is still the shared downstream regulatory analysis skill used by `health-docs` and `health-refactor`, but its US and EU paths should be implemented as explicit per-skill overlays.
 
 Suggested direction:
-- `health-regulatory-review/references/us-*.md` and `health-regulatory-review/references/eu-*.md`
+- `health-compliance-review/references/us-*.md` and `health-compliance-review/references/eu-*.md`
 - `health-docs/references/us-*.md` and `health-docs/references/eu-*.md` where documentation expectations differ
 - `health-refactor/references/` material only where the orchestrator needs routing-specific heuristics or output conventions
 
 **Rationale**: This preserves the current top-level skill surface while still making jurisdiction behavior inspectable and maintainable. It also matches how the repository already prefers progressive disclosure through references instead of multiplying trigger skills.
 
 **Alternatives considered**:
-- Create a separate `health-docs-eu` or `health-regulatory-review-eu` skill directory. Rejected because the user wants the existing top-level skills to remain canonical and the variation is overlay behavior, not a fundamentally separate workflow.
+- Create a separate `health-docs-eu` or `health-compliance-review-eu` skill directory. Rejected because the user wants the existing top-level skills to remain canonical and the variation is overlay behavior, not a fundamentally separate workflow.
 - Inline all jurisdiction logic directly into each `SKILL.md`. Rejected because it would make the top-level prompts too large.
 
-### Decision 5: `health-regulatory-review` becomes the shared regulatory overlay selector
+### Decision 5: `health-compliance-review` becomes the shared regulatory overlay selector
 
-**Decision**: `health-regulatory-review` remains the downstream regulatory analysis skill used by `health-docs` and `health-refactor`, and it gains an explicit EU-oriented review path. That path should cover GDPR, EHDS, MDR/IVDR, AI Act, and NIS2 applicability signals and present them as evidence-based overlays rather than as a monolithic “EU compliance” answer.
+**Decision**: `health-compliance-review` remains the downstream regulatory analysis skill used by `health-docs` and `health-refactor`, and it gains an explicit EU-oriented review path. That path should cover GDPR, EHDS, MDR/IVDR, AI Act, and NIS2 applicability signals and present them as evidence-based overlays rather than as a monolithic "EU compliance" answer.
 
-**Rationale**: The recent rename to `health-regulatory-review` only makes sense if the skill actually supports non-US regulatory analysis. Centralizing overlay logic there reduces duplication across orchestrating skills.
+**Rationale**: The recent rename to `health-compliance-review` only makes sense if the skill actually supports non-US regulatory analysis. Centralizing overlay logic there reduces duplication across orchestrating skills.
 
 **Alternatives considered**:
 - Teach each consumer skill its own EU regulatory heuristics. Rejected because that would duplicate compliance logic.
@@ -120,14 +120,14 @@ Suggested direction:
 **Rationale**: These skills are composition points. The user experience improves when the jurisdiction decision is surfaced once at the orchestration layer instead of buried in downstream outputs.
 
 **Alternatives considered**:
-- Let only `health-regulatory-review` perform selection. Rejected because consumers would still appear to behave unpredictably from the user’s perspective.
+- Let only `health-compliance-review` perform selection. Rejected because consumers would still appear to behave unpredictably from the user's perspective.
 
 ### Decision 7: Keep new detail in references and examples, not in oversized top-level prompts
 
 **Decision**: Skill-specific detail should live in references and examples:
 
 - `health-product-discovery`: US and EU market overlay references, plus examples showing US-only, EU-only, and `us+eu` discovery framing
-- `health-regulatory-review`: reference material for EU applicability signals and example outputs
+- `health-compliance-review`: reference material for EU applicability signals and example outputs
 - `health-docs` and `health-refactor`: examples showing evidence-backed routing and override behavior
 
 Top-level `SKILL.md` files should describe when overlays are selected and how composition works, but not inline every regional heuristic.
@@ -148,7 +148,7 @@ Top-level `SKILL.md` files should describe when overlays are selected and how co
 ## Migration Plan
 
 1. Update `health-product-discovery` to move current US-shaped assumptions into a dedicated US overlay reference and add the EU overlay reference.
-2. Update `health-regulatory-review` to support EU applicability signals and EU-oriented review output.
+2. Update `health-compliance-review` to support EU applicability signals and EU-oriented review output.
 3. Update `health-docs` and `health-refactor` to perform evidence-backed overlay selection and route accordingly.
 4. Add examples showing `us`, `eu`, and `us+eu` paths, plus reuse of `.health-context.yaml`.
 5. Verify that current US-only behavior still works when evidence strongly indicates a US-only repository.

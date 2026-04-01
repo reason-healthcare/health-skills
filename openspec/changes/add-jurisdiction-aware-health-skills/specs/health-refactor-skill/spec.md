@@ -29,9 +29,9 @@ The skill SHALL dispatch three analysis passes over the resolved file set: a ref
 - **THEN** the skill invokes `health-human-factors` in scoped invocation mode, passing the file list
 - **THEN** the human-factors analysis produces findings with IDs prefixed `HF-`
 
-#### Scenario: Regulatory analysis composes health-regulatory-review skill
+#### Scenario: Regulatory analysis composes health-compliance-review skill
 - **WHEN** the file set is resolved and jurisdiction overlays have been selected
-- **THEN** the skill invokes `health-regulatory-review` in scoped invocation mode, passing the file list and the active `us`, `eu`, or `us+eu` overlays
+- **THEN** the skill invokes `health-compliance-review` in scoped invocation mode, passing the file list and the active `us`, `eu`, or `us+eu` overlays
 - **THEN** the regulatory analysis produces findings with IDs prefixed `H-`
 
 #### Scenario: Analyses run in defined order

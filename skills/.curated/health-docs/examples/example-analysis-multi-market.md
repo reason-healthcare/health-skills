@@ -34,7 +34,7 @@ Found EU signals (medium confidence):
 **Proposed overlays: `us+eu`**
 
 **Subagent dispatch:**
-- `$health-regulatory-review` (scoped) — healthcare regulatory and EU signals detected ✓
+- `$health-compliance-review` (scoped) — healthcare regulatory and EU signals detected ✓
 - `$health-fhir-api-design` (scoped) — FHIR signals detected ✓
 - `$health-human-factors` — UI files detected in `app/views/` ✓
 

@@ -1,31 +1,31 @@
 ---
-name: health-regulatory-review
-description: Produce a report-only healthcare regulatory review for codebases and delivery systems. Selects `us`, `eu`, or `us+eu` overlays from evidence before inspecting code, configs, data flows, integrations, logging, and deployment boundaries.
+name: health-compliance-review
+description: Audit, validate, and enforce regulatory and security controls in healthcare codebases and delivery systems. Selects `us`, `eu`, or `us+eu` jurisdiction overlays from evidence, then delivers deterministic findings across regulatory compliance and security control areas.
 ---
 
-# Healthcare Regulatory Review
+# Healthcare Regulatory & Security Compliance Review
 
 ## Overview
 
-Use this skill to inspect healthcare software and produce an engineering review of privacy, security, and healthcare-regulatory risks.
+Use this skill to audit and validate healthcare software against regulatory and security controls. Every control gap is a finding. Every finding carries a declared severity. Jurisdiction is selected from evidence — not assumed.
 
 Select one of `us`, `eu`, `us+eu`, or `unclear` before reviewing:
 
 1. Read `.health-context.yaml` if it exists.
 2. Check the repository scope for confirming or conflicting signals.
 3. Load `references/us-regulatory-overlay.md` and/or `references/eu-regulatory-overlay.md` based on the selected overlay set.
-4. If the evidence is mixed, surface that uncertainty instead of forcing a single market.
+4. If evidence is mixed, state the conflict and declare the most defensible overlay set. Do not defer indefinitely.
 
 ## Operating Rules
 
 - Never change code, configs, infrastructure, or documentation.
-- Do not present the output as legal advice, certification, or a formal compliance determination.
-- Bias toward code-observable evidence and clearly separate:
-  - confirmed evidence from the code or config
-  - likely inferences from nearby implementation
-  - non-code dependencies that require policy, vendor, ops, or legal validation
-- Treat missing implementation or missing documented alternatives as finding candidates when a selected overlay expects those safeguards.
-- When PII appears without clear PHI, still report the privacy risk and note that final regulatory scope may depend on deployment context.
+- Do not present output as legal advice, certification, or a formal compliance determination.
+- Use code-observable evidence. Separate findings into three tiers:
+  - **confirmed**: direct evidence in code or config
+  - **inferred**: evident from adjacent implementation with high confidence
+  - **non-code dependency**: requires policy, vendor, ops, or legal validation
+- Absence of a required control is a finding. Do not present missing safeguards as optional gaps or improvement suggestions — state them as findings with appropriate severity.
+- When PII appears without clear PHI, report the privacy risk. State it as a finding; do not wait for deployment context to confirm scope.
 
 ## Workflow
 
@@ -34,7 +34,7 @@ Select one of `us`, `eu`, `us+eu`, or `unclear` before reviewing:
 3. Map sensitive-data entry, storage, logging, transmission, export, analytics, AI, and deletion paths across code and configuration.
 4. Review those touchpoints against `references/control-areas.md` plus the active jurisdiction overlays.
 5. Assign severity and confidence for each issue, and mark where evidence is missing.
-6. Produce a report only. Do not draft patches or implement remediations.
+6. Enforce findings. Name every control gap, declare every severity, and cite every guideline. Do not soften findings as suggestions or deferred concerns. Do not draft patches or implement remediations.
 
 ## What To Inspect
 
@@ -65,7 +65,7 @@ Select one of `us`, `eu`, `us+eu`, or `unclear` before reviewing:
 
 ### Standalone (default)
 
-When invoked directly by a user or without the phrase "scoped review," operate normally: confirm scope interactively, select overlays, map sensitive-data paths, review against the active overlays, and produce the full report described in the Output Contract below.
+When invoked directly by a user or without the phrase "scoped review," operate in standalone mode: confirm scope, select overlays from evidence, map sensitive-data paths, validate against active overlays, and produce the full report described in the Output Contract below.
 
 ### Scoped
 
@@ -84,7 +84,7 @@ When invoked with the phrase "scoped review" and a pre-determined list of file p
   - Guideline: {overlay source, regulatory section, or baseline guidance}
   ```
 
-  If no findings are discovered, return a single line: "No healthcare regulatory findings for the provided files."
+  If no control gaps are found, return a single line: "No compliance findings for the provided files."
 
 ## Output Contract
 

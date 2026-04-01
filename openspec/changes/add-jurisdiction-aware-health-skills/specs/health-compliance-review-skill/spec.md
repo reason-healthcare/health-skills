@@ -1,7 +1,7 @@
 ## ADDED Requirements
 
 ### Requirement: Skill performs evidence-backed jurisdiction-aware regulatory review
-The `health-regulatory-review` skill SHALL produce a report-only healthcare regulatory review that selects `us`, `eu`, `us+eu`, or `unclear` overlays from repository evidence and confirmed context before evaluating control areas.
+The `health-compliance-review` skill SHALL produce a report-only healthcare compliance review that selects `us`, `eu`, `us+eu`, or `unclear` overlays from repository evidence and confirmed context before evaluating control areas.
 
 #### Scenario: Shared project context informs overlay selection
 - **WHEN** `.health-context.yaml` exists and contains a jurisdiction value
@@ -19,7 +19,7 @@ The `health-regulatory-review` skill SHALL produce a report-only healthcare regu
 - **THEN** the final report separates shared findings from US-specific and EU-specific findings
 
 ### Requirement: Skill defines explicit US and EU regulatory overlays in references
-The `health-regulatory-review` skill SHALL express jurisdiction-specific regulatory heuristics through reference overlays owned by the skill.
+The `health-compliance-review` skill SHALL express jurisdiction-specific regulatory heuristics through reference overlays owned by the skill.
 
 #### Scenario: US regulatory overlay remains available
 - **WHEN** a contributor inspects the skill references
@@ -31,7 +31,7 @@ The `health-regulatory-review` skill SHALL express jurisdiction-specific regulat
 - **THEN** that overlay is available to both standalone invocations and orchestrating skills using scoped mode
 
 ### Requirement: EU overlay covers major healthcare regulatory applicability signals
-The EU overlay for `health-regulatory-review` SHALL identify the major EU-oriented regulatory and assurance regimes relevant to healthcare software systems.
+The EU overlay for `health-compliance-review` SHALL identify the major EU-oriented regulatory and assurance regimes relevant to healthcare software systems.
 
 #### Scenario: Privacy and health-data regimes are evaluated
 - **WHEN** the EU overlay is applied
@@ -49,10 +49,10 @@ The EU overlay for `health-regulatory-review` SHALL identify the major EU-orient
 - **THEN** the report identifies where technical evidence is insufficient to confirm organizational obligations
 
 ### Requirement: Scoped invocation remains available for orchestrating skills
-The `health-regulatory-review` skill SHALL continue to support scoped invocation mode for orchestrating skills while preserving overlay-aware review behavior.
+The `health-compliance-review` skill SHALL continue to support scoped invocation mode for orchestrating skills while preserving overlay-aware review behavior.
 
 #### Scenario: Scoped review respects pre-determined file list
-- **WHEN** an orchestrating skill invokes `health-regulatory-review` in scoped mode with a file list
+- **WHEN** an orchestrating skill invokes `health-compliance-review` in scoped mode with a file list
 - **THEN** the skill skips interactive scope confirmation
 - **THEN** the skill evaluates only the provided files against the active jurisdiction overlays
 

@@ -1,6 +1,6 @@
 # Healthcare Regulatory Review Report
 
-**Skill**: `health-regulatory-review`
+**Skill**: `health-compliance-review`
 **Date**: 2026-03-15
 **Auditor**: AI-assisted engineering review
 **Target**: MedConnect Patient Portal — v2.4.1

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Healthcare Compliance Review"
+  short_description: "Audit and enforce US/EU healthcare regulatory and security controls"
+  default_prompt: "Use $health-compliance-review to audit a healthcare codebase or delivery system and enforce regulatory and security controls. Select `us`, `eu`, or `us+eu` overlays from evidence and produce deterministic findings."

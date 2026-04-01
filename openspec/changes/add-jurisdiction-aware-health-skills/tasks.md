@@ -11,10 +11,10 @@
 - [x] 2.3 Create an EU overlay reference under `skills/.curated/health-product-discovery/references/` covering member-state fragmentation, public procurement, HTA and reimbursement variation, localisation, cross-border interoperability, and public-system incentives
 - [x] 2.4 Update document-mode guidance and examples so output records active US, EU, or `us+eu` market assumptions and distinguishes shared findings from market-specific findings
 
-## 3. health-regulatory-review Overlays
+## 3. health-compliance-review Overlays
 
-- [x] 3.1 Update `skills/.curated/health-regulatory-review/SKILL.md` to select jurisdiction overlays from evidence and confirmed context before running the review
-- [x] 3.2 Add explicit US and EU regulatory overlay references under `skills/.curated/health-regulatory-review/references/`
+- [x] 3.1 Update `skills/.curated/health-compliance-review/SKILL.md` to select jurisdiction overlays from evidence and confirmed context before running the review
+- [x] 3.2 Add explicit US and EU regulatory overlay references under `skills/.curated/health-compliance-review/references/`
 - [x] 3.3 Ensure the EU overlay covers GDPR, EHDS, MDR/IVDR, AI Act, and NIS2 applicability signals while preserving report-only behavior and scoped invocation mode
 - [x] 3.4 Add or update examples showing standalone and scoped review output for `us`, `eu`, and `us+eu` paths
 
@@ -28,7 +28,7 @@
 
 - [x] 5.1 Update `skills/.curated/health-refactor/SKILL.md` so it detects jurisdiction context before invoking regulatory analysis
 - [x] 5.2 Add any required `health-refactor` reference material for routing heuristics or output conventions tied to jurisdiction-aware analysis
-- [x] 5.3 Update example plans so they show proposed overlay evidence and jurisdiction-aware composition of `health-regulatory-review`
+- [x] 5.3 Update example plans so they show proposed overlay evidence and jurisdiction-aware composition of `health-compliance-review`
 
 ## 6. Library and Verification
 

@@ -17,7 +17,7 @@ This repository had four main US-default assumption clusters that now need expli
 | Skill | US-default assumptions to externalize | Target overlay files | Example updates |
 |---|---|---|---|
 | `health-product-discovery` | fee-for-service, value-based care, payer incentives, hospital committee buying, US EHR procurement gravity | `references/us-market-overlay.md`, `references/eu-market-overlay.md` | show `us` and `us+eu` discovery outputs |
-| `health-regulatory-review` | HIPAA-first privacy/security framing presented as the whole regulatory surface | `references/us-regulatory-overlay.md`, `references/eu-regulatory-overlay.md` | show `us`, `eu`, and `us+eu` review outputs |
+| `health-compliance-review` | HIPAA-first privacy/security framing presented as the whole regulatory surface | `references/us-regulatory-overlay.md`, `references/eu-regulatory-overlay.md` | show `us`, `eu`, and `us+eu` review outputs |
 | `health-docs` | HIPAA/ONC/FDA-only detection and compliance drafting assumptions | `references/us-docs-overlay.md`, `references/eu-docs-overlay.md` | show jurisdiction detection and EU compliance docs in analyze/document examples |
 | `health-refactor` | automatic HIPAA composition without prior jurisdiction routing | `references/jurisdiction-routing.md` | show overlay evidence in plan examples |
 

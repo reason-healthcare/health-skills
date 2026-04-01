@@ -1,6 +1,6 @@
 # Healthcare Regulatory Review Report
 
-**Skill**: `health-regulatory-review`
+**Skill**: `health-compliance-review`
 **Date**: 2026-03-31
 **Auditor**: AI-assisted engineering review
 **Target**: CrossBorderCare Coordination Platform
