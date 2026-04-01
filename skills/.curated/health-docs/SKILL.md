@@ -5,6 +5,10 @@ description: Audit and consolidate documentation for healthcare engineering syst
 
 # Healthcare System Documentation
 
+## When To Use
+
+Invoke in **analyze** mode to assess documentation coverage before writing anything, or in **document** mode to consolidate existing docs and fill required regulatory gaps. Use when a healthcare system lacks structured, auditable documentation or needs jurisdiction-aware regulatory documentation produced or verified.
+
 ## Overview
 
 Healthcare engineering systems require documentation that serves multiple audiences simultaneously — developers, operators, auditors, AI agents, and regulators. That documentation rarely exists in a usable state: it's scattered across README files, inline comments, AGENTS.md, and external wikis, with critical regulatory-required content simply absent.
@@ -306,4 +310,3 @@ requirements:               # populated after document mode interview
 - Appends to `.health-docs/runs/YYYY-MM-DD.md` with run record
 - Does not modify code, tests, or configurations
 - Does not delete original files — flags them for human-reviewed cleanup
-

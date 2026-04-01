@@ -5,7 +5,7 @@
 - `jurisdiction`: `us`
   Evidence:
   - HIPAA and PHI language in `docs/security.md`
-  - US Core references in `docs/interoperability.md`
+  - US Core profile references in `docs/interoperability.md`
   Confidence: `high`
 
 - `primary_audience`: `provider`

@@ -52,7 +52,7 @@ Direct importers (these import PatientService):
 - Category: Long method / god class
 - File: src/services/PatientService.ts:1
 - Detail: PatientService (390 lines) manages FHIR Patient reads/searches, an in-memory patient cache with TTL logic, and audit log writes. These are three distinct responsibilities sharing mutable state.
-- Guideline: Refactor pattern 1 — extract caching into a dedicated cache layer and audit calls into middleware or decorator.
+- Guideline: Standard refactoring (single responsibility / extract class) + Part 2 override — extracted services must remain in the audit instrumentation chain.
 
 ### [R-2] PatientDTO uses generic field names for clinical concepts
 - Source: refactor
@@ -60,7 +60,7 @@ Direct importers (these import PatientService):
 - Category: Clinical domain naming
 - File: src/models/PatientDTO.ts:12
 - Detail: Fields named `data1`, `data2`, `flag` carry clinical meaning (insurance group, coverage type, VIP indicator) but use non-descriptive names. Developers must read comments to understand the fields.
-- Guideline: Refactor pattern 8 — use domain-specific names that map to clinical terminology (e.g., `coverageGroup`, `coverageType`, `vipIndicator`).
+- Guideline: Healthcare pattern 6 — Clinical Domain Naming: use domain-specific names that map to clinical terminology (e.g., `coverageGroup`, `coverageType`, `vipIndicator`).
 
 ### [R-3] Silent catch in FHIR patient search
 - Source: refactor
@@ -68,7 +68,7 @@ Direct importers (these import PatientService):
 - Category: Error handling in clinical paths
 - File: src/services/PatientService.ts:145
 - Detail: The `searchPatients` method catches all errors and returns an empty array. Callers (patientRouter, PatientSearch) have no way to distinguish "no results" from "FHIR server unreachable."
-- Guideline: Refactor pattern 9 — in clinical paths, propagate errors so callers can display appropriate messages and trigger alerts.
+- Guideline: Healthcare pattern 7 — Error Handling in Clinical Paths: prefer explicit failure surfaces over graceful degradation; callers must be able to distinguish empty results from system failures.
 
 ### Human-Factors Findings
 
@@ -117,7 +117,7 @@ Direct importers (these import PatientService):
 
 ## Risks & Notes
 
-- **Item 1 is safety-critical**: absent audit logging for patient data access is a HIPAA compliance gap. Prioritize this above structural refactoring.
+- **Item 1 is safety-critical**: absent audit logging for patient data access is a compliance gap under EU health data regulations (GDPR Art. 32 / EHDS traceability requirements). Prioritize this above structural refactoring.
 - **Item 3 before item 4**: PatientSearch (item 4) cannot show distinct error states until PatientService propagates errors (item 3). Implement in order.
 - **Item 5 interacts with item 2**: extracting the cache (item 5) and minimizing cached fields (item 2) touch the same code. Consider doing both in one pass to avoid double-refactoring.
 - **Item 6 is a wide rename**: `PatientDTO.data1`, `.data2`, and `.flag` are used in all three importers (patientRouter, PatientSearch, eligibilityWorker). Coordinate the rename across all files. A symbol rename tool can help.

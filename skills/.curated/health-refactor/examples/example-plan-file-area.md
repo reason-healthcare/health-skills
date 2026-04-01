@@ -33,7 +33,7 @@
 - Category: Long method / god class
 - File: src/dashboard/dashboardService.ts:1
 - Detail: dashboardService.ts (310 lines) handles FHIR Bundle fetching, Patient resource extraction, alert threshold evaluation, and dashboard layout preferences. These are four distinct responsibilities.
-- Guideline: Refactor pattern 1 — split into focused modules (FHIR client, alert rules, layout preferences).
+- Guideline: Standard refactoring (single responsibility / extract class) + Part 2 override — when splitting, ensure audit trail continuity for any data paths that access patient data.
 
 ### [R-2] Clinical terminology strings hardcoded in AlertBanner
 - Source: refactor
@@ -41,7 +41,7 @@
 - Category: Clinical terminology duplication
 - File: src/dashboard/AlertBanner.tsx:18
 - Detail: Alert severity labels ("STAT", "Urgent", "Routine") and clinical category strings ("Lab Critical", "Vital Sign Alert") are hardcoded. The same strings appear in dashboardService.ts with slightly different casing.
-- Guideline: Refactor pattern 2 — extract clinical terminology into a shared vocabulary module to prevent drift.
+- Guideline: Healthcare pattern 1 — Clinical Terminology Duplication: extract clinical codes and terminology strings into a shared vocabulary module to prevent drift and silent inconsistencies.
 
 ### [R-3] Dead feature flag for legacy vitals view
 - Source: refactor
@@ -49,7 +49,7 @@
 - Category: Dead code and clinical feature flags
 - File: src/dashboard/VitalsPanel.tsx:5
 - Detail: `ENABLE_LEGACY_VITALS_VIEW` flag is checked on line 5 but the flag has been set to `false` in all environments since the v2.4 release. The guarded block (lines 8–45) is unreachable.
-- Guideline: Refactor pattern 7 — verify the flag is fully retired across environments before removing the dead branch.
+- Guideline: Part 2 override (Dead code and feature flags) — verify the flag is not a clinical safety gate and is fully retired across all environments before removing the guarded branch.
 
 ### Human-Factors Findings
 

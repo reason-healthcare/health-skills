@@ -40,17 +40,16 @@ GET [base]/MedicationRequest?patient=Patient/12345&status=active&_include=Medica
 
 ### Missing-Data Safety
 
-Medications where `status` is absent will not match `status=active`. To catch those:
+Medications where `status` is absent will not match `status=active`. To retrieve both active medications and those with a missing status, issue two separate queries (they cannot be combined in a single query):
 
 ```http
-GET [base]/MedicationRequest?patient=Patient/12345&status=active,unknown
-```
-
-Or explicitly query for missing status:
-
-```http
+GET [base]/MedicationRequest?patient=Patient/12345&status=active
 GET [base]/MedicationRequest?patient=Patient/12345&status:missing=true
 ```
+
+Consider using a Bundle `batch` to issue both in a single round-trip.
+
+> Note: `status=active,unknown` uses OR semantics and matches only resources where `status` is explicitly set to `active` **or** `unknown` — it does not match resources where `status` is absent.
 
 ### Trade-Offs
 

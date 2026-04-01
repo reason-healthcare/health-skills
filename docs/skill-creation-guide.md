@@ -108,19 +108,19 @@ The first curated categories for this repository are:
 
 1. Healthcare product discovery (`health-product-discovery`)
 2. Clinical and workflow-aware experience design (`health-human-factors`)
-3. Interoperability and FHIR-informed API design (`health-fhir-api-design`)
+3. Interoperability and FHIR-informed API design (`health-fhir-api-design`, `health-fhir-modeling`)
 4. Security, privacy, and jurisdiction-aware regulatory delivery (`health-compliance-review`)
-5. Operational readiness and healthcare product quality
+5. Healthcare system documentation and regulatory doc generation (`health-docs`)
 6. Healthcare codebase refactoring and code quality (`health-refactor`)
 
 ## Skill Composition
 
-Orchestrating skills can compose existing report-only skills by invoking them in **scoped mode**. A skill supports scoped invocation when its SKILL.md includes an "Invocation Modes" section that defines:
+Orchestrating skills can compose existing report-only skills by invoking them in **scoped mode**. A skill supports scoped invocation when its SKILL.md includes a "Modes" section that defines:
 
-- **Standalone (default)** — existing behavior, triggered directly by users
-- **Scoped** — triggered by an orchestrating skill with a pre-determined file list; returns findings-only output without interactive scope confirmation or executive summary
+- **Mode: standalone (default)** — existing behavior, triggered directly by users
+- **Mode: scoped** — triggered by an orchestrating skill with a pre-determined file list; returns findings-only output without interactive scope confirmation or executive summary
 
-`health-human-factors` and `health-compliance-review` both support scoped invocation. `health-refactor` uses this pattern to compose all three analysis lenses into a single bounded plan. When building a new orchestrating skill, check whether the target skills support scoped mode before embedding duplicate logic.
+`health-human-factors`, `health-compliance-review`, and `health-fhir-api-design` all support scoped invocation. Both `health-refactor` and `health-docs` use this pattern to compose multiple skills into a single bounded plan or documentation audit. When building a new orchestrating skill, check whether the target skills support scoped mode before embedding duplicate logic.
 
 When a healthcare skill needs different US and EU behavior, keep one top-level skill and put the regional differences in per-skill `references/` overlays. Reuse `.health-context.yaml` when present and use the shared overlay vocabulary `us`, `eu`, `us+eu`, `unclear`. See [docs/jurisdiction-aware-overlays.md](jurisdiction-aware-overlays.md).
 

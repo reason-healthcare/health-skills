@@ -29,7 +29,7 @@ The **United States Core Data for Interoperability (USCDI)** is an ONC-maintaine
 
 This reference covers **US Core 5.0.1 (STU 5)**, which corresponds to USCDI v3 and is mandated by the ONC HTI-1 rule.
 
-> **Coverage scope**: Detailed must-support tables are provided for five resources only: Patient, Observation, Condition, Encounter, and MedicationRequest. For any other US Core profile, consult the full IG at `https://hl7.org/fhir/us/core/STU5.0.1/` — do not generate must-support details from memory for uncovered resources.
+> **Coverage scope**: Detailed must-support tables are provided for five resources only: Patient, Observation (laboratory profile — `us-core-observation-lab`), Condition, Encounter, and MedicationRequest. The Observation vitals profile (`us-core-vital-signs`) is described in the Key Notes below the laboratory table. For any other US Core profile, consult the full IG at `https://hl7.org/fhir/us/core/STU5.0.1/` — do not generate must-support details from memory for uncovered resources.
 
 ---
 

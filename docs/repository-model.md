@@ -30,7 +30,7 @@ npx skills add https://github.com/reason-healthcare/health-skills/tree/dist
 
 The `dist` branch is built by `scripts/publish_dist_branch.py` and does not contain experimental skills, scripts, development tooling, or OpenSpec artifacts. Do not author content on `dist` directly.
 
-Flow: edit `skills/` on `main` → validate → publish to `dist`.
+Flow: edit `skills/` on `main` → validate → publish to `dist` → verify `dist`.
 
 ## Preserved Authored Runtime Files
 

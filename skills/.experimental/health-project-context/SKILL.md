@@ -18,7 +18,7 @@ This skill answers those questions from repository evidence first, then persists
 ## Workflow
 
 1. Read `.health-context.yaml` if it already exists.
-2. Scan the repository for evidence using the reference files only as needed:
+2. Scan the repository for evidence, consulting the reference files as needed:
    - jurisdiction signals
    - audience signals
    - repository maturity signals
@@ -26,7 +26,7 @@ This skill answers those questions from repository evidence first, then persists
 4. Record confidence and concrete evidence for each field.
 5. Present the proposed values before writing:
    - if confidence is high and signals are clean, present the result for quick confirmation
-   - if confidence is low, mixed, or `unclear`, call that out explicitly and invite correction
+   - if confidence is low or any field resolves to `unclear` or `mixed`, call that out explicitly and invite correction
 6. Write or update `.health-context.yaml` only after confirmation or override.
 7. Reuse the stored context on later runs unless repository evidence or user input indicates it should change.
 

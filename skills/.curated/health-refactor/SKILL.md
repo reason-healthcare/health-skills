@@ -5,6 +5,10 @@ description: Produce a scope-bounded, plan-only refactoring assessment for healt
 
 # Healthcare Refactor Plan
 
+## When To Use
+
+Invoke to produce a scope-bounded refactoring plan for a healthcare codebase. Use when reviewing recent changes (git range), a module (file area), or a service boundary (symbol). Never modifies code — produces findings and a prioritized checklist only.
+
 ## Overview
 
 Use this skill to analyze a bounded area of a healthcare codebase and produce a prioritized refactoring plan. The plan combines three analysis lenses: structural code quality (healthcare-aware), human-factors design review, and jurisdiction-aware regulatory review. Output is a plan document with findings and a checklist — no code is modified.
@@ -49,12 +53,17 @@ If no context mode is provided, ask the user:
 
 ### Step 2: Run Refactoring Analysis (Composed + Embedded)
 
-1. If a general-purpose refactoring skill is available (e.g., `$refactor`), delegate to it as a subagent for a **standard code-quality review** of the resolved file list. Collect its findings with IDs prefixed `R-`.
-2. If the delegated refactoring skill returns severities, normalize them to the plan scale before merging findings: `critical` -> critical, `high` -> major, `medium` -> minor, `low` -> minor. If it does not declare severity, infer `major` or `minor` from the implementation risk and note the assumption.
-2. If no refactoring skill is available, apply standard refactoring heuristics directly (extract method, reduce complexity, eliminate duplication, improve type safety, remove dead code, etc.). Produce findings with IDs prefixed `R-`.
-3. Load `references/refactor-patterns.md` and apply **Part 1** (healthcare-specific patterns) to the resolved file set. Produce additional findings with IDs continuing the `R-` sequence.
-4. Apply **Part 2** (healthcare overrides) to review and adjust any standard findings — suppress false positives where clinical context justifies the current structure, and escalate standard findings that have clinical safety implications.
-5. Read each file in the resolved file set during both passes.
+Read every file in the resolved file set before producing findings. Work in two passes.
+
+**Pass 1 — Standard code-quality review**:
+- If a general-purpose refactoring skill is available (e.g., `$refactor`), delegate to it as a subagent for the resolved file list. Collect its findings with IDs prefixed `R-`.
+- If the delegated refactoring skill returns severities, normalize them to the plan scale before merging findings: `critical` -> critical, `high` -> major, `medium` -> minor, `low` -> minor. If it does not declare severity, infer `major` or `minor` from the implementation risk and note the assumption.
+- If no such skill is available, apply standard refactoring heuristics directly: extract method, reduce complexity, eliminate duplication, improve type safety, remove dead code. Produce findings with IDs prefixed `R-`.
+
+**Pass 2 — Healthcare-specific review** (always performed after Pass 1):
+- Load `references/refactor-patterns.md`.
+- Apply **Part 1** (patterns 1–7) to the resolved file set. Add findings, continuing the `R-` sequence.
+- Apply **Part 2** (clinical overrides) to the full `R-` finding list: suppress false positives where clinical context justifies the current structure; escalate findings that carry patient-safety or compliance implications.
 
 ### Step 3: Determine Jurisdiction Context
 
@@ -68,6 +77,8 @@ If no context mode is provided, ask the user:
 1. Delegate to `$health-human-factors` as a subagent for a **scoped review** of the resolved file list.
 2. Pass the file list as the pre-determined scope.
 3. Collect findings with IDs prefixed `HF-`.
+4. If `$health-human-factors` is unavailable, perform direct human-factors analysis using the 20 review categories and note `confidence: reduced` for this section in the plan.
+5. Map external severity levels to the plan's scale: `critical` → critical, `high` → major, `medium` → minor, `low` → minor.
 
 ### Step 5: Run Regulatory Analysis (Composed)
 
@@ -75,7 +86,8 @@ If no context mode is provided, ask the user:
 2. Pass the file list as the pre-determined scope.
 3. Pass the active jurisdiction overlays from Step 3.
 4. Collect findings with IDs prefixed `H-`.
-5. Map external severity levels to the plan's scale: `critical` → critical, `high` → major, `medium` → minor, `low` → minor.
+5. If `$health-compliance-review` is unavailable, perform direct regulatory analysis against the active jurisdiction overlays and note `confidence: reduced` for this section in the plan.
+6. Map external severity levels to the plan's scale: `critical` → critical, `high` → major, `medium` → minor, `low` → minor.
 
 ### Step 6: Produce the Refactor Plan
 
@@ -91,7 +103,7 @@ Assemble the plan output following the Output Contract below.
 
 ## Resources
 
-- `references/refactor-patterns.md`: healthcare-specific refactoring patterns (7 patterns) and clinical overrides to standard refactoring heuristics
+- `references/refactor-patterns.md`: **Part 1** — 7 healthcare-specific refactoring patterns (clinical terminology, FHIR resource handling, clinical data formatting, audit trail integrity, tenant isolation, domain naming, error handling in clinical paths); **Part 2** — clinical overrides to standard heuristics (god class, dead code/feature flags, test coverage, modularity, inline documentation)
 - `references/jurisdiction-routing.md`: evidence patterns for selecting `us`, `eu`, `us+eu`, or `unclear` before composing regulatory review
 - `examples/example-plan-git-range.md`: example plan output for git range context
 - `examples/example-plan-file-area.md`: example plan output for file area context
