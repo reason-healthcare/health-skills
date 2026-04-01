@@ -8,8 +8,8 @@ Use this reference to infer who the repository primarily serves.
 - `patient`
 - `payer`
 - `administrative`
-- `other`
 - `mixed`
+- `unknown`
 
 ## Provider
 
@@ -44,17 +44,6 @@ Common signals:
 - staff workflow not centered on direct clinical delivery
 - registration, prior auth operations, billing follow-up, fax queue handling
 
-## Other
-
-Use `other` when the repository is healthcare-relevant but not primarily built for one of the audience classes above.
-
-Examples:
-
-- SDKs and API platforms
-- internal compliance tools
-- infrastructure, developer tooling, or migration utilities
-- consulting artifacts, documentation frameworks, or strategy outputs
-
 ## Mixed
 
 Use `mixed` when multiple audiences are clearly first-class and no single one dominates.
@@ -64,6 +53,17 @@ Examples:
 - dual provider + patient workflow products
 - payer + provider collaboration systems
 - systems with clearly separated experiences for operations and clinicians
+
+## Unknown
+
+Use `unknown` when the repository does not provide enough product evidence to infer who it serves and the user should confirm the audience directly.
+
+Examples:
+
+- blank or near-empty repos
+- repos containing mostly `.agents/`, `.claude/`, `.codex/`, or similar assistant configuration
+- reusable prompt, skill, or automation libraries with no visible product workflows
+- generic platform or infra scaffolding without healthcare user-facing evidence
 
 ## Evidence Sources
 
@@ -75,3 +75,4 @@ Good signals include:
 - success metrics or business outcomes tied to a particular user group
 
 Avoid overfitting to a single word. Prefer repeated signals across multiple parts of the repository.
+Do not infer an audience from meta-tooling alone.

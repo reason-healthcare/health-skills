@@ -19,7 +19,7 @@ Strong evidence for `existing` includes:
 - deployment manifests, infrastructure configs, or runtime environments
 - operational docs, runbooks, support notes, or architecture diagrams
 
-One or two of these alone may be enough if the repository clearly represents an active system.
+One or two of these alone may be enough if the repository clearly represents an active system. Generic CI, assistant configuration, prompt libraries, or generated metadata files are not enough by themselves.
 
 ## Greenfield
 
@@ -30,6 +30,7 @@ Strong evidence for `greenfield` includes:
 - proposal/spec/task artifacts without implementation code
 - placeholder README and minimal setup files only
 - examples or starter kits with no actual product implementation
+- repos that contain only agent-tooling, assistant config, or prompt assets with no application code
 
 Treat aspirational docs as weaker than real implementation evidence.
 
@@ -42,6 +43,7 @@ Examples:
 - a partial migration repo with some scaffolding but little real implementation
 - a mono-repo slice that contains docs and configs but not enough product code to classify
 - a tooling repo that supports an existing product but does not itself reveal maturity clearly
+- a repo with CI plus `.agents/`, `.claude/`, or skill definitions, but no actual application or service implementation
 
 ## Heuristic Priorities
 
@@ -49,3 +51,4 @@ Examples:
 2. Prefer multiple small maturity signals over a single generic claim.
 3. Do not use git history depth alone as the deciding factor.
 4. If evidence conflicts, say so and use `unclear` rather than forcing a label.
+5. Do not treat agent-tooling directories, prompt assets, or skills metadata as product implementation evidence.
