@@ -26,6 +26,8 @@ Read the handoff artifact from analyze mode, conduct an evidence-informed interv
 ## Operating Rules
 
 - Never modify code, tests, configurations, or infrastructure files.
+- Analyze mode may write only `.health-docs/analysis.md`. Document mode may write only within the target documentation directory, `.health-docs/analysis.md`, and `.health-docs/runs/`.
+- Document mode requires explicit user confirmation before any file writes. Analyze mode does not require an extra confirmation beyond selecting analyze mode.
 - Never silently resolve conflicts between documentation sources — always flag for human resolution.
 - Always mark documents in `comply/` directories with `⚠ REQUIRES HUMAN REVIEW` regardless of operation type (consolidate, merge, or draft new) — the skill can transcribe and draft from evidence, but cannot certify compliance.
 - If a relevant subagent is unavailable, fall back to direct analysis for that dimension; note reduced confidence in the artifact.

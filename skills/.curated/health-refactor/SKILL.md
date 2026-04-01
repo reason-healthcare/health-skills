@@ -50,6 +50,7 @@ If no context mode is provided, ask the user:
 ### Step 2: Run Refactoring Analysis (Composed + Embedded)
 
 1. If a general-purpose refactoring skill is available (e.g., `$refactor`), delegate to it as a subagent for a **standard code-quality review** of the resolved file list. Collect its findings with IDs prefixed `R-`.
+2. If the delegated refactoring skill returns severities, normalize them to the plan scale before merging findings: `critical` -> critical, `high` -> major, `medium` -> minor, `low` -> minor. If it does not declare severity, infer `major` or `minor` from the implementation risk and note the assumption.
 2. If no refactoring skill is available, apply standard refactoring heuristics directly (extract method, reduce complexity, eliminate duplication, improve type safety, remove dead code, etc.). Produce findings with IDs prefixed `R-`.
 3. Load `references/refactor-patterns.md` and apply **Part 1** (healthcare-specific patterns) to the resolved file set. Produce additional findings with IDs continuing the `R-` sequence.
 4. Apply **Part 2** (healthcare overrides) to review and adjust any standard findings — suppress false positives where clinical context justifies the current structure, and escalate standard findings that have clinical safety implications.

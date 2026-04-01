@@ -11,6 +11,8 @@ Help software developers building healthcare apps answer the question: **"What F
 
 This skill is for app developers who know their domain but are new to FHIR. It covers resource selection, profile compliance, relationship modeling, extension usage, and terminology — everything needed before writing a search query or a REST call.
 
+This skill is advisory only. It does not modify repository files, application code, or FHIR artifacts.
+
 **Relationship to `health-fhir-api-design`**: This skill handles the *modeling layer* (what shape is my data?). `health-fhir-api-design` handles the *interaction layer* (how do I exchange it via REST?). Use this skill first; switch to `health-fhir-api-design` once the resource model is settled.
 
 This skill is grounded in FHIR R4 (v4.0.1): `https://hl7.org/fhir/R4/`

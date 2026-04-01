@@ -9,6 +9,8 @@ description: Design FHIR R4 API interactions — search queries, operations ($),
 
 Help users design concrete FHIR R4 (v4.0.1) API interactions for their requirements. The user describes **what they need** — the skill recommends **how to achieve it** using the R4 RESTful API, covering resource selection, search construction, operations, validation strategy, and workflow coordination.
 
+This skill is advisory only. It does not modify repository files, application code, or server configuration.
+
 This skill is grounded in the HL7 FHIR R4 specification at `https://hl7.org/fhir/R4/`.
 
 ---
