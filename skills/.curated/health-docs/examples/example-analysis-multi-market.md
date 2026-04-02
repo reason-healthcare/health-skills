@@ -7,10 +7,7 @@ This example shows `health-docs` analyze mode when both US and EU overlays apply
 ## Pass 1: Signal Detection
 
 **Reading `.health-context.yaml`...**
-File not found. Asking user:
-> "Should I focus on US regulations (HIPAA/ONC/FDA), EU regulations (GDPR/MDR/AI Act/NIS2), or both? I'll detect signals automatically — this helps me prioritize what to look for."
-
-User responds: `us+eu`
+File not found. Proceeding with repository evidence scan.
 
 **Scanning repository for regulatory signals...**
 
@@ -32,6 +29,8 @@ Found EU signals (medium confidence):
 - EHDS / cross-border patient summary references in `docs/interoperability.md:22`
 
 **Proposed overlays: `us+eu`**
+
+Evidence is strong enough to continue without an extra market-selection question.
 
 **Subagent dispatch:**
 - `$health-compliance-review` (scoped) — healthcare regulatory and EU signals detected ✓
@@ -254,4 +253,3 @@ requirements:
 ## Summary
 
 The repository behaves as a multi-market healthcare platform with clear US (HIPAA/SMART on FHIR) and EU (GDPR/MDR) signals. Documentation gaps must be split into: shared engineering docs (data flows, architecture), US compliance docs (`comply/hipaa/`), and EU compliance docs (`comply/eu/`). The breach notification runbook is dual-obligation and must include separate jurisdiction-specific timeline sections. The HIPAA retention / GDPR erasure conflict requires legal review before either document is finalized.
-

@@ -32,7 +32,7 @@ Keep the base discovery flow jurisdiction-neutral. Apply market overlays only af
 
 Use this order:
 
-1. Read `.health-context.yaml` if it exists (this file is created and maintained by the `health-project-context` skill) and note the stored jurisdiction.
+1. Read `.health-context.yaml` if it exists (this file is created and maintained by the `health-init` skill) and note the stored jurisdiction.
 2. Check the user prompt, provided materials, and repository evidence for confirming or conflicting market signals.
 3. Load `references/us-market-overlay.md` and/or `references/eu-market-overlay.md` only for the selected overlay set. Each overlay provides market-specific challenge prompts for explore mode, required content additions for document mode, and healthcare economics depth for both.
 4. If evidence is mixed, say so explicitly and avoid silently defaulting to US market assumptions.

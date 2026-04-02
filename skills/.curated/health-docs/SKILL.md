@@ -48,7 +48,7 @@ Read the handoff artifact from analyze mode, conduct an evidence-informed interv
 
 Inventory the repository without subagents:
 
-0. Read `.health-context.yaml` if it exists — this file is created and maintained by the `health-project-context` skill. If it exists, record the stored `jurisdiction`, `confidence`, and `evidence` values before scanning; use them as a prior when synthesizing Pass 1 signals. If the file does not exist, ask the user: "Should I focus on US regulations (HIPAA/ONC/FDA), EU regulations (GDPR/MDR/AI Act/NIS2), or both? I'll detect signals automatically — this helps me prioritize what to look for." Accept `us`, `eu`, `us+eu`, or `unclear` and proceed with the scan.
+0. Read `.health-context.yaml` if it exists — this file is created and maintained by the `health-init` skill. If it exists, record the stored `jurisdiction`, `confidence`, and `evidence` values before scanning; use them as a prior when synthesizing Pass 1 signals.
 1. Find all markdown files at every level (`**/*.md`)
 2. Find all agent instruction files: `AGENTS.md`, `.github/copilot-instructions.md`, `.cursor/rules`, `.cursorrules`, `CLAUDE.md`
 3. Find CI/CD configs: `.github/workflows/`, `Jenkinsfile`, `.circleci/`, `Makefile`
@@ -61,7 +61,8 @@ Inventory the repository without subagents:
    - PHI signals → HIPAA candidate (record confidence level and specific evidence)
    - ONC/EHR API signals → ONC candidate
    - SaMD/AI clinical signals → FDA SaMD candidate
-6. Record all external links found in documentation (flag as unverifiable)
+6. If jurisdiction confidence remains low or mixed after the scan, present the proposed `us`, `eu`, `us+eu`, or `unclear` overlay set with the evidence found and ask the user to confirm or correct it before subagent dispatch. Do not ask the user to pick a market before completing the evidence scan.
+7. Record all external links found in documentation (flag as unverifiable)
 
 ### Pass 2: Parallel Subagent Dispatch
 
