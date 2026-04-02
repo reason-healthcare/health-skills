@@ -4,11 +4,11 @@ Defines the repository bootstrap skill that derives reusable healthcare project 
 
 ## Requirements
 
-### Requirement: Skill exists in the experimental skill library
-The repository SHALL include a `health-init` skill at `skills/.experimental/health-init/`.
+### Requirement: Skill exists in the curated skill library
+The repository SHALL include a `health-init` skill at `skills/.curated/health-init/`.
 
 #### Scenario: Skill directory is present
-- **WHEN** a maintainer inspects `skills/.experimental/`
+- **WHEN** a maintainer inspects `skills/.curated/`
 - **THEN** a `health-init/` directory exists containing `SKILL.md`, `agents/openai.yaml`, `references/jurisdiction-signals.md`, `references/audience-signals.md`, `references/stage-signals.md`, and at least one example artifact showing `.health-context.yaml`
 
 ### Requirement: Skill infers jurisdiction from repository evidence
@@ -35,7 +35,7 @@ The skill SHALL inspect the target repository and classify jurisdiction as `us`,
 - **THEN** the skill records the missing or weak evidence condition in the artifact
 
 ### Requirement: Skill infers primary audience from repository evidence
-The skill SHALL inspect the target repository and classify primary audience as `provider`, `patient`, `payer`, `administrative`, `other`, or `mixed`, recording confidence and evidence for the selected value.
+The skill SHALL inspect the target repository and classify primary audience as `provider`, `patient`, `payer`, `administrative`, `mixed`, or `unknown`, recording confidence and evidence for the selected value.
 
 #### Scenario: Repository primarily serves one healthcare audience
 - **WHEN** repository evidence consistently points to a single audience such as clinicians, patients, payers, or administrative staff
@@ -47,10 +47,10 @@ The skill SHALL inspect the target repository and classify primary audience as `
 - **THEN** the skill sets `primary_audience.value` to `mixed`
 - **THEN** the skill records evidence for each audience represented
 
-#### Scenario: Repository is healthcare-adjacent but not audience-facing
-- **WHEN** the repository is primarily a platform, SDK, internal tooling, consulting artifact, or infrastructure component rather than directly serving providers, patients, payers, or administrative users
-- **THEN** the skill sets `primary_audience.value` to `other`
-- **THEN** the skill records the evidence that led to that classification
+#### Scenario: Repository lacks enough audience evidence
+- **WHEN** the repository is sparse, tooling-oriented, or otherwise does not reveal who the healthcare product serves
+- **THEN** the skill sets `primary_audience.value` to `unknown`
+- **THEN** the skill records the missing or weak evidence condition and expects user review before persistence
 
 ### Requirement: Skill infers project stage from repository maturity
 The skill SHALL determine project stage from repository evidence and classify it as `greenfield`, `existing`, or `unclear`.
@@ -69,6 +69,11 @@ The skill SHALL determine project stage from repository evidence and classify it
 - **WHEN** the repository contains sparse or contradictory evidence that does not support a confident stage classification
 - **THEN** the skill sets `project_stage.value` to `unclear`
 - **THEN** the skill records why the evidence was insufficient or conflicting
+
+#### Scenario: Tooling-only repositories do not imply an existing product
+- **WHEN** the repository consists mainly of assistant configuration, prompt assets, reusable skills, repo metadata, or generic CI without meaningful implementation evidence
+- **THEN** the skill does NOT infer `project_stage.value = existing` from those signals alone
+- **THEN** the skill prefers `greenfield` or `unclear` depending on the remaining evidence
 
 ### Requirement: Skill writes a root-level `.health-context.yaml` artifact
 The skill SHALL persist inferred context to a root-level file named `.health-context.yaml` in the target repository.
@@ -89,15 +94,17 @@ Before writing `.health-context.yaml`, the skill SHALL present the proposed valu
 #### Scenario: User accepts the proposed values
 - **WHEN** the skill presents the proposed context values and the user accepts them
 - **THEN** the skill writes those values to `.health-context.yaml`
+- **THEN** the accepted fields are persisted with `confidence: high`
 - **THEN** the artifact sets `confirmed_by_user` to `true`
 
 #### Scenario: User overrides one or more inferred values
 - **WHEN** the user corrects jurisdiction, primary audience, or project stage before the file is written
 - **THEN** the skill writes the user-provided values instead of the inferred ones for the overridden fields
+- **THEN** the overridden fields are persisted with `confidence: high`
 - **THEN** the artifact sets `confirmed_by_user` to `true`
 
 #### Scenario: Confidence is low or evidence conflicts
-- **WHEN** any inferred field has low confidence, conflicting signals, or an `unclear` result
+- **WHEN** any inferred field has low confidence, conflicting signals, or an `unclear`, `mixed`, or `unknown` result
 - **THEN** the skill explicitly calls out that condition during the pre-write review
 - **THEN** the user is given a chance to correct the field before persistence
 
@@ -108,6 +115,11 @@ If `.health-context.yaml` already exists, the skill SHALL read it before inferen
 - **WHEN** `.health-context.yaml` exists and the stored values remain consistent with current repository evidence
 - **THEN** the skill reuses the existing values as defaults
 - **THEN** the skill avoids re-asking for unchanged confirmed fields
+
+#### Scenario: Existing artifact is low-confidence or unresolved
+- **WHEN** `.health-context.yaml` exists but a field remains low-confidence, `unclear`, or `unknown`
+- **THEN** the skill re-checks that field against current repository evidence
+- **THEN** the skill presents the unresolved field for confirmation again before persistence
 
 #### Scenario: Existing artifact conflicts with new evidence
 - **WHEN** `.health-context.yaml` exists but one or more stored values conflict with current repository evidence

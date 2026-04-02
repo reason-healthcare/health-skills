@@ -4,11 +4,11 @@ Defines the `health-fhir-modeling` skill for software developers who need to map
 
 ## Requirements
 
-### Requirement: Skill exists in the experimental skill library
-The repository SHALL include a `health-fhir-modeling` skill at `skills/.experimental/health-fhir-modeling/`.
+### Requirement: Skill exists in the curated skill library
+The repository SHALL include a `health-fhir-modeling` skill at `skills/.curated/health-fhir-modeling/`.
 
 #### Scenario: Skill directory is present
-- **WHEN** a maintainer inspects `skills/.experimental/`
+- **WHEN** a maintainer inspects `skills/.curated/`
 - **THEN** a `health-fhir-modeling/` directory exists containing `SKILL.md`, `agents/openai.yaml`, `references/fhir-r4-resources.md`, `references/profile-guides.md`, `references/us-core-guide.md`, and `examples/example-model.md`
 
 ### Requirement: Skill identifies mode from user input

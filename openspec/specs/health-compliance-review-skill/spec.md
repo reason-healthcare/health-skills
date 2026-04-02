@@ -4,6 +4,19 @@ Defines the `health-compliance-review` curated skill as a report-only healthcare
 
 ## Requirements
 
+### Requirement: Skill remains report-only and grounded in engineering evidence
+The `health-compliance-review` skill SHALL produce findings from code, configuration, and observable implementation evidence without modifying repository files.
+
+#### Scenario: Findings distinguish evidence strength
+- **WHEN** the skill reports a control gap
+- **THEN** the finding distinguishes between confirmed code evidence, likely adjacent implementation evidence, and non-code dependencies
+- **THEN** the report avoids presenting legal or organizational unknowns as confirmed code facts
+
+#### Scenario: Missing required controls are findings
+- **WHEN** a required safeguard or documentation boundary is absent from the inspected scope
+- **THEN** the skill reports that absence as a finding with severity
+- **THEN** the skill does not soften the gap into a generic improvement suggestion
+
 ### Requirement: Skill performs evidence-backed jurisdiction-aware regulatory review
 The `health-compliance-review` skill SHALL produce a report-only healthcare compliance review that selects `us`, `eu`, `us+eu`, or `unclear` overlays from repository evidence and confirmed context before evaluating control areas.
 
@@ -64,3 +77,11 @@ The `health-compliance-review` skill SHALL continue to support scoped invocation
 - **WHEN** the skill operates in scoped mode
 - **THEN** the output remains a findings-only list suitable for composition
 - **THEN** each finding continues to include an ID, severity, category, file location, detail, and guideline reference
+
+### Requirement: Standalone output follows the audit report contract
+The `health-compliance-review` skill SHALL produce a structured standalone audit report when not invoked in scoped mode.
+
+#### Scenario: Standalone report includes overlay rationale and findings matrix
+- **WHEN** the skill is invoked directly by a user
+- **THEN** the output includes the selected overlays and the evidence used to choose them
+- **THEN** the output includes an executive summary, in-scope components, findings, a coverage matrix by control area, and open questions or non-code dependencies

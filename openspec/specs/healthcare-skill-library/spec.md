@@ -14,7 +14,7 @@ The repository SHALL provide a canonical skill library structure for shared skil
 
 #### Scenario: Curated skills cover initial healthcare categories
 - **WHEN** the curated library is inspected
-- **THEN** skills exist for FHIR API design, HIPAA code review, human factors design review, product discovery, and healthcare codebase refactoring
+- **THEN** skills exist for project context bootstrap, FHIR API design, FHIR modeling, healthcare documentation, compliance review, human factors design review, product discovery, and healthcare codebase refactoring
 - **THEN** each skill includes `SKILL.md`, `agents/openai.yaml`, and supporting `references/` or `examples/` as appropriate
 
 ### Requirement: Healthcare system documentation skill is available
@@ -83,13 +83,13 @@ The `health-compliance-review` skill SHALL include a scoped invocation mode sect
 - **THEN** an Invocation Modes section describes both standalone and scoped modes
 - **THEN** the scoped mode specifies input (file list), behavior (skip scope confirmation), and output (findings with `H-` prefix)
 
-### Requirement: Project context bootstrap skill is available in the experimental library
-The repository SHALL include a `health-init` skill in `skills/.experimental/` for deriving reusable healthcare project context from repository evidence.
+### Requirement: Project context bootstrap skill is available in the curated library
+The repository SHALL include a `health-init` skill in `skills/.curated/` for deriving reusable healthcare project context from repository evidence.
 
 #### Scenario: Project context skill is discoverable
 - **WHEN** a contributor inspects the skill library
-- **THEN** a skill named `health-init` exists in `skills/.experimental/`
-- **THEN** the skill is listed in README.md and DEVELOPER.md under experimental skills when implemented
+- **THEN** a skill named `health-init` exists in `skills/.curated/`
+- **THEN** the skill is listed in README.md and DEVELOPER.md under curated skills
 
 ### Requirement: Shared healthcare project context artifact is standardized
 The healthcare skill library SHALL standardize `.health-context.yaml` as the reusable root-level artifact for shared project context.
@@ -104,13 +104,21 @@ The healthcare skill library SHALL standardize `.health-context.yaml` as the reu
 - **THEN** the skill may use the artifact as its default context source
 - **THEN** the skill still allows override when task-specific evidence or user input conflicts with the stored values
 
-### Requirement: FHIR modeling skill is available in the experimental library
-The repository SHALL include a `health-fhir-modeling` skill in `skills/.experimental/` for software developers who need to map domain concepts to FHIR R4 resources and understand profile compliance requirements.
+### Requirement: FHIR modeling skill is available in the curated library
+The repository SHALL include a `health-fhir-modeling` skill in `skills/.curated/` for software developers who need to map domain concepts to FHIR R4 resources and understand profile compliance requirements.
 
 #### Scenario: FHIR modeling skill is discoverable
 - **WHEN** a developer inspects the skill library
-- **THEN** a skill named `health-fhir-modeling` exists in `skills/.experimental/`
-- **THEN** the skill is listed in README.md and DEVELOPER.md under experimental skills
+- **THEN** a skill named `health-fhir-modeling` exists in `skills/.curated/`
+- **THEN** the skill is listed in README.md and DEVELOPER.md under curated skills
+
+### Requirement: Curated healthcare skills have main OpenSpec capability specs
+The repository SHALL maintain a corresponding main OpenSpec capability spec for each curated healthcare skill.
+
+#### Scenario: Curated capability spec is present
+- **WHEN** a maintainer inspects `skills/.curated/`
+- **THEN** each curated healthcare skill has a corresponding spec in `openspec/specs/`
+- **THEN** the main spec documents the skill's purpose, key modes or workflows, and contract-level outputs
 
 ### Requirement: Jurisdiction-aware healthcare overlays are implemented within top-level skills
 The healthcare skill library SHALL keep `health-docs`, `health-refactor`, and `health-compliance-review` as the canonical top-level curated skills while implementing jurisdiction-specific behavior through per-skill reference overlays.

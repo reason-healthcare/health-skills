@@ -4,6 +4,18 @@ Defines the `health-product-discovery` curated skill as a jurisdiction-aware hea
 
 ## Requirements
 
+### Requirement: Skill supports explicit explore and document modes
+The `health-product-discovery` skill SHALL support an exploratory mode for stress-testing ideas and a document mode for producing a structured planning artifact.
+
+#### Scenario: Explore mode challenges assumptions before solutioning
+- **WHEN** the user is early in problem framing or market validation
+- **THEN** the skill uses an exploratory workflow that surfaces incentive conflicts, adoption barriers, workflow burden, and evidence gaps before converging on a solution
+
+#### Scenario: Document mode produces a reusable planning artifact
+- **WHEN** the user asks for a structured discovery output or planning document
+- **THEN** the skill produces a document-shaped artifact rather than only conversational guidance
+- **THEN** the document records the active market assumptions, key risks, and open validation questions
+
 ### Requirement: Skill supports jurisdiction-aware healthcare product discovery
 The `health-product-discovery` skill SHALL keep its core discovery workflow jurisdiction-neutral and SHALL apply regional market overlays when repository or user context indicates `us`, `eu`, or `us+eu` applicability.
 
@@ -65,3 +77,11 @@ The `health-product-discovery` skill SHALL preserve a single document-mode artif
 - **WHEN** document mode is used with a US, EU, or `us+eu` overlay
 - **THEN** the output records the active market assumptions in sections such as stakeholder incentives, payment and business viability, adoption strategy, risks, and open questions
 - **THEN** the output identifies which assumptions require country-specific or buyer-specific validation before execution
+
+### Requirement: Skill remains analysis-only
+The `health-product-discovery` skill SHALL produce analysis or document content only and SHALL not modify repository files, code, or configuration.
+
+#### Scenario: User invokes discovery against an existing repository
+- **WHEN** the skill is used in a repo-backed workflow
+- **THEN** it may read repository context and prior artifacts as inputs
+- **THEN** it does not edit code or operational files as part of discovery
