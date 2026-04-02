@@ -10,12 +10,12 @@ The skill SHALL scan a target repository, produce a structured coverage audit ac
 #### Scenario: Analyze mode runs broad scan first
 - **WHEN** user invokes analyze mode
 - **THEN** the skill inventories all markdown files, README files at every level, AGENTS.md and other agent instruction files, and CI/CD configs in the repository
-- **THEN** the skill scans for PHI, ONC, and FDA SaMD regime signals in code and configuration
+- **THEN** the skill scans for PHI, ONC, FDA SaMD, and jurisdiction signals in code and configuration
 - **THEN** no files are written to the target repository during this pass (`.health-docs/analysis.md` is written after Pass 3, not during Pass 1)
 
 #### Scenario: Analyze mode delegates to available subagents in parallel
-- **WHEN** regime signals are detected and relevant subagents are installed
-- **THEN** `$health-compliance-review` is invoked in scoped mode if PHI signals are found
+- **WHEN** regime or jurisdiction signals are detected and relevant subagents are installed
+- **THEN** `$health-compliance-review` is invoked in scoped mode when healthcare regulatory analysis is needed, using the active `us`, `eu`, or `us+eu` overlays
 - **THEN** `$health-fhir-api-design` is invoked in scoped mode if FHIR resource types, SMART on FHIR auth patterns, EHR vendor SDK imports, or USCDI field references are found
 - **THEN** `$health-human-factors` is invoked in scoped mode if UI source files are found (`.html`, `.tsx`, `.jsx`, `.vue`, `.erb`, or directories matching `app/views/`, `src/components/`, `templates/`)
 - **THEN** subagent invocations that do not depend on each other are dispatched in parallel
@@ -47,7 +47,12 @@ The skill SHALL include every dimension from the canonical hierarchy in the cove
 - **THEN** coverage for that dimension is marked partial, not covered
 
 ### Requirement: Regulatory regime is detected from codebase signals
-The skill SHALL identify applicable regulatory regimes (HIPAA, ONC, FDA SaMD) from code and configuration evidence before asking the user any questions.
+The skill SHALL identify applicable healthcare regulatory regimes and jurisdiction overlays from code and configuration evidence before asking the user any questions.
+
+#### Scenario: Shared project context seeds jurisdiction detection
+- **WHEN** `.health-context.yaml` exists and contains a jurisdiction value
+- **THEN** the skill uses that value as the default jurisdiction proposal
+- **THEN** the skill still checks the repository for confirming or conflicting evidence before proceeding
 
 #### Scenario: PHI signals trigger HIPAA regime proposal
 - **WHEN** the skill finds PHI field names (ssn, dob, mrn, npi, patient_id), PHI-bearing model names, FHIR resource types, HL7 references, or HIPAA-related comments in code
@@ -62,13 +67,23 @@ The skill SHALL identify applicable regulatory regimes (HIPAA, ONC, FDA SaMD) fr
 - **WHEN** the skill finds ML model loading, clinical scoring functions, diagnostic language in docs, or clinical terminology code lookups driving recommendations
 - **THEN** the skill proposes FDA SaMD as an applicable regime and notes it for user confirmation
 
+#### Scenario: EU health-data and delivery signals trigger EU-oriented regulatory proposal
+- **WHEN** the skill finds GDPR, EHDS, MDR/IVDR, AI Act, NIS2, CE marking, member-state deployment language, or EU public-system deployment signals in code or docs
+- **THEN** the skill proposes an EU regulatory overlay with confidence proportional to the evidence
+- **THEN** the skill lists the specific evidence found
+
+#### Scenario: Mixed signals trigger concurrent overlays
+- **WHEN** the skill finds meaningful evidence for both US and EU applicability
+- **THEN** the skill proposes `us+eu` instead of forcing one market to be the default
+- **THEN** the analyze output distinguishes shared documentation needs from market-specific ones
+
 ### Requirement: Skill supports document mode for consolidation and gap-filling
 The skill SHALL consolidate existing documentation into the target hierarchy and draft new content for required gaps, after confirming a requirements profile with the user.
 
 #### Scenario: Document mode reads handoff artifact before any interaction
 - **WHEN** user invokes document mode
 - **THEN** the skill reads `.health-docs/analysis.md` if it exists
-- **THEN** the skill presents evidence-backed regime findings before asking any questions
+- **THEN** the skill presents evidence-backed regime and jurisdiction findings before asking any questions
 
 #### Scenario: Document mode conducts evidence-informed interview
 - **WHEN** document mode presents findings to the user
@@ -94,7 +109,7 @@ The skill SHALL consolidate existing documentation into the target hierarchy and
 - **THEN** new content is drafted only for required dimensions with no existing source
 
 #### Scenario: Regulatory-class documents are marked for human review
-- **WHEN** document mode writes any content — consolidated, merged, or drafted — for comply/hipaa, comply/onc, or comply/fda dimensions
+- **WHEN** document mode writes any content — consolidated, merged, or drafted — for comply/hipaa, comply/onc, comply/fda, or EU-oriented regulatory compliance dimensions
 - **THEN** each target file carries a visible warning that it requires human review before serving as compliance evidence
 - **THEN** the `.health-docs/analysis.md` requirements profile records all files requiring human review
 
