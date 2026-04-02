@@ -14,7 +14,7 @@ The repository SHALL use a canonical authored source layout that is independent 
 #### Scenario: Source of truth is unambiguous
 - **WHEN** a contributor inspects the repository
 - **THEN** `skills/` on the `main` branch is the single source of truth
-- **THEN** local agent trees (`.claude/skills/`, `.github/skills/`, etc.) and the `dist` branch are clearly identified as generated outputs
+- **THEN** local agent trees (`.agents/skills/`, `.claude/skills/`) and the `dist` branch are clearly identified as generated outputs
 
 ### Requirement: Repository remains compatible with skills.sh discovery
 The repository SHALL structure base skills so they can be consumed by `skills.sh` without inventing a custom skill format.

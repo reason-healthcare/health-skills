@@ -2,7 +2,7 @@
 
 This repository is intended to become the shared source for AI skills used to build healthcare technology software and digital health products. The skills need to be reusable across agents, compatible with `skills.sh`, and structured so teams can author, validate, and distribute them consistently.
 
-The current repository already contains agent-specific skill directories such as `.claude/skills`, `.codex/skills`, `.gemini/skills`, and `.github/skills`. That layout is useful for local consumption, but it is not a strong long-term authoring model for a shared healthcare skill library because the primary value of the repo is the curated skill content itself, not per-agent copies.
+The current repository already contains local install directories such as `.agents/skills`, `.claude/skills`, and `.github/skills`. That layout is useful for local consumption, but it is not a strong long-term authoring model for a shared healthcare skill library because the primary value of the repo is the curated skill content itself, not runtime copies.
 
 Healthcare-oriented skills also need stronger structure than generic prompt assets. They will likely accumulate reusable references, templates, workflow guidance, and possibly scripts for deterministic transformations. That makes repository conventions, packaging rules, and validation gates part of the product, not just implementation detail.
 
@@ -38,7 +38,7 @@ Rationale:
 - It makes the healthcare skill catalog the product, rather than a set of mirrored installations.
 
 Alternatives considered:
-- Keep `.claude/skills`, `.codex/skills`, and similar directories as co-equal sources. Rejected because it creates drift and weak ownership boundaries.
+- Keep `.agents/skills`, `.claude/skills`, and similar directories as co-equal sources. Rejected because it creates drift and weak ownership boundaries.
 - Store all skills in a flat repository root. Rejected because it scales poorly as references, assets, and helper scripts grow.
 
 OpenSpec workflow skills used to operate this repository are local development tooling and are not part of the distributed healthcare skill source model.

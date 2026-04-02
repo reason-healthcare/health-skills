@@ -8,7 +8,7 @@ The `main` branch holds the canonical source for all skills. Author and review s
 
 Everything else is generated:
 
-- **Local agent trees** (`.claude/skills/`, `.codex/skills/`, `.gemini/skills/`, `.github/skills/`) are built by `compose_skills.py` for use within this repo. Do not hand-edit these.
+- **Local agent trees** (`.agents/skills/` and `.claude/skills/`) are built by `compose_skills.py` for use within this repo. `.github/skills/` is intentionally kept empty. Do not hand-edit composed healthcare skills in those directories.
 - **The `dist` branch** is a clean, publishable layout built by `publish_dist_branch.py`. Consumers install from `dist` via `npx skills add`. It contains only composed output — no source authoring happens there.
 
 Edit `skills/` on `main` → validate → compose → publish to `dist`.
@@ -39,7 +39,6 @@ Current experimental skills on disk:
 
 Current overlay examples on disk:
 
-- `profiles/codex/health-fhir-api-design/agents/openai.yaml`
 - `profiles/github/health-product-discovery/SKILL.append.md`
 
 ## Distribution Model
@@ -52,7 +51,7 @@ This repo has two related outputs:
 The scripts support two composition paths:
 
 - `python3 scripts/compose_skills.py`
-  - Copies authored skills into the local agent install trees under `.claude/skills`, `.codex/skills`, `.gemini/skills`, and `.github/skills`
+  - Copies authored skills into the local agent install trees under `.agents/skills` and `.claude/skills`, removes legacy `.codex/` and `.gemini/` trees, and clears `.github/skills/`
 - `python3 scripts/compose_skills.py --dist-root /tmp/vermonster-dist`
   - Builds a clean distribution tree containing `README.md` and `skills/.curated/*`
 

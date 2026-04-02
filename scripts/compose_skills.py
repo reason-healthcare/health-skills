@@ -14,11 +14,11 @@ README_FILE = ROOT / "README.md"
 AUTHORED_GROUPS = {".curated", ".experimental"}
 DIST_GROUPS = {".curated"}
 TARGET_LAYOUT = {
+    "agents": Path(".agents") / "skills",
     "claude": Path(".claude") / "skills",
-    "codex": Path(".codex") / "skills",
-    "gemini": Path(".gemini") / "skills",
-    "github": Path(".github") / "skills",
 }
+LEGACY_AGENT_ROOTS = [Path(".codex"), Path(".gemini")]
+EMPTY_SKILL_ROOTS = [Path(".github") / "skills"]
 
 
 def iter_skill_dirs(groups: set[str] | None = None) -> list[Path]:
@@ -35,6 +35,27 @@ def iter_skill_dirs(groups: set[str] | None = None) -> list[Path]:
 
 def target_root_for(base_root: Path, agent: str) -> Path:
     return base_root / TARGET_LAYOUT[agent]
+
+
+def ensure_empty_dir(path: Path) -> None:
+    path.mkdir(parents=True, exist_ok=True)
+    for child in path.iterdir():
+        if child.name == ".gitkeep":
+            continue
+        if child.is_dir():
+            shutil.rmtree(child)
+        else:
+            child.unlink()
+
+
+def cleanup_legacy_outputs(base_root: Path) -> None:
+    for legacy_root in LEGACY_AGENT_ROOTS:
+        target = base_root / legacy_root
+        if target.exists():
+            shutil.rmtree(target)
+
+    for empty_root in EMPTY_SKILL_ROOTS:
+        ensure_empty_dir(base_root / empty_root)
 
 
 def compose_agent(agent: str, skill_dirs: list[Path], base_root: Path = ROOT) -> None:
@@ -66,6 +87,7 @@ def compose_agent(agent: str, skill_dirs: list[Path], base_root: Path = ROOT) ->
 def compose_all(base_root: Path = ROOT, agents: list[str] | None = None) -> int:
     selected_agents = agents or sorted(TARGET_LAYOUT)
     skill_dirs = iter_skill_dirs()
+    cleanup_legacy_outputs(base_root)
     for agent in selected_agents:
         compose_agent(agent, skill_dirs, base_root=base_root)
         print(f"[ok] composed {len(skill_dirs)} skills for {agent}")

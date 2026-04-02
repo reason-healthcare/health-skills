@@ -1,3 +1,7 @@
 __pycache__/
 *.py[cod]
 .DS_Store
+.agents/skills/health-*/
+.claude/skills/health-*/
+.github/skills/*
+!.github/skills/.gitkeep
