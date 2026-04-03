@@ -18,7 +18,8 @@ Select one of `us`, `eu`, `us+eu`, or `unclear` before reviewing:
 1. Read `.health-context.yaml` if it exists.
 2. Check the repository scope for confirming or conflicting signals.
 3. Load the regulatory overlays matching the selected set: `us` → load `references/us-regulatory-overlay.md`; `eu` → load `references/eu-regulatory-overlay.md`; `us+eu` → load both; `unclear` → load both pending clarification.
-4. If evidence is mixed, state the conflict and declare the most defensible overlay set. Do not defer indefinitely.
+4. If evidence is mixed, state the conflict explicitly. Do not silently default to US assumptions. Declare the most defensible overlay set.
+5. If jurisdiction remains `unclear` after the evidence scan, ask the user to confirm before proceeding.
 
 ## Operating Rules
 
@@ -87,7 +88,7 @@ When invoked with the phrase "scoped review" and a pre-determined list of file p
   - File: {path}:{line}
   - Detail: {what was observed and what evidence supports the finding}
   - Guideline: {overlay source, regulatory section, or baseline guidance}
-  - Confidence: Confirmed | Likely | Non-code dependency
+  - Confidence: confirmed | likely | non-code dependency
   ```
 
   If no control gaps are found, return a single line: "No compliance findings for the provided files."

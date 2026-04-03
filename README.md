@@ -15,10 +15,10 @@ See also: [npx skill docs](https://skills.sh/)
 
 ## Skills
 
-Each skill works independently — invoke any one in isolation for its specific purpose. They are also designed to work in concert across a natural development lifecycle: discover the problem space, model and implement a solution, then verify it.
+Each skill works independently — invoke any one in isolation for its specific purpose. They are also designed to work in concert across a natural development lifecycle, [including working with other spec and agile skill frameworks](./docs/framework-skill-mapping.md): discover the problem space, model and implement a solution, then verify it.
 
 ```
-                    Health Skills — Development Lifecycle
+                Health Skills — Development Lifecycle
 
 ┌─────────────────────────────────────────┐
 │   Bootstrap (new or exist project)      │
@@ -34,8 +34,8 @@ Each skill works independently — invoke any one in isolation for its specific 
 │   Planning            │
 ├───────────────────────┤
 │ ┌───────────────────┐ │ ◀─────────────────────────┐
-│ │ Health Init       │ │                           │
-│ │ (new or exist)    │ │                           │
+│ │ Health Discovery  │ │                           │
+│ │                   │ │                           │
 │ └───────────────────┘ │                           │
 └───────────────────────┘                           │
           │                                         │
@@ -101,3 +101,5 @@ Review healthcare and EHR software user interfaces against a comprehensive desig
 ---
 
 Skills are listed below in lifecycle-phase order. For contributing and skill development, see [DEVELOPER.md](https://github.com/reason-healthcare/health-skills/blob/main/DEVELOPER.md).
+
+### If you need help [hire the team that built this!](https://www.vermonster.com/)

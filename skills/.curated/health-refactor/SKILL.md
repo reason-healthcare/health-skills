@@ -69,8 +69,9 @@ Read every file in the resolved file set before producing findings. Work in two 
 
 1. Read `.health-context.yaml` if it exists and note any stored jurisdiction value.
 2. Check the bounded file set for confirming or conflicting signals using `references/jurisdiction-routing.md`.
-3. Propose one of `us`, `eu`, `us+eu`, or `unclear`.
-4. Record the proposed overlays and a short evidence list in the final plan before dispatching regulatory analysis.
+3. Select one of `us`, `eu`, `us+eu`, or `unclear`. Do not silently default to US assumptions.
+4. If jurisdiction is `unclear`, ask the user to confirm before dispatching regulatory analysis.
+5. Record the proposed overlays and a short evidence list in the final plan.
 
 ### Step 4: Run Human-Factors Analysis (Composed)
 
@@ -96,7 +97,6 @@ Assemble the plan output following the Output Contract below.
 ## Constraints
 
 - Scope is always bounded. Never analyze the entire codebase.
-- Plan only — do not propose code changes unless the user explicitly requests remediation guidance after reviewing the plan.
 - If a sub-agent (human-factors or regulatory review) produces no findings, note it in the plan and omit the empty findings section for that sub-agent.
 - Sub-agent order matters: refactoring first, jurisdiction selection, then human-factors, then regulatory review.
 - For symbol/dependency mode, always include the dependency graph in the Scope section so the user can see what was and was not reviewed.

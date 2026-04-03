@@ -61,7 +61,7 @@ Inventory the repository without subagents:
    - PHI signals → HIPAA candidate (record confidence level and specific evidence)
    - ONC/EHR API signals → ONC candidate
    - SaMD/AI clinical signals → FDA SaMD candidate
-6. If jurisdiction confidence remains low or mixed after the scan, present the proposed `us`, `eu`, `us+eu`, or `unclear` overlay set with the evidence found and ask the user to confirm or correct it before subagent dispatch. Do not ask the user to pick a market before completing the evidence scan.
+6. If jurisdiction confidence remains low or mixed after the scan, present the proposed `us`, `eu`, `us+eu`, or `unclear` overlay set with the evidence found and ask the user to confirm or correct it before subagent dispatch. Do not silently default to US assumptions. Do not ask the user to pick a market before completing the evidence scan.
 7. Record all external links found in documentation (flag as unverifiable)
 
 ### Pass 2: Parallel Subagent Dispatch
@@ -219,76 +219,21 @@ Append a dated entry to `.health-docs/runs/YYYY-MM-DD.md` recording:
 
 ## Handoff Artifact Schema
 
-The `.health-docs/analysis.md` file uses YAML frontmatter for structured data and a markdown body for human narrative.
+The `.health-docs/analysis.md` file uses YAML frontmatter for structured data and a markdown body for human narrative. See `references/artifact-schema.md` for the complete field-by-field schema.
 
-```yaml
----
-generated_at: "2026-03-28T14:00:00Z"
-schema_version: "1"
-
-regime_detected:
-  hipaa:
-    proposed: true
-    confidence: high
-    evidence:
-      - "Patient model with mrn, dob fields (src/models/patient.rb:12)"
-      - "'phi' in 14 variable names"
-  onc:
-    proposed: true
-    confidence: medium
-    evidence:
-      - "SMART on FHIR scopes in config/oauth.yml"
-  fda_samd:
-    proposed: false
-    confidence: low
-    evidence: []
-
-jurisdiction_detected:
-  value: "us"
-  confidence: high
-  evidence:
-    - "NPI and HIPAA references in app/models/patient.rb and docs/security.md"
-
-doc_root_detected: "docs/"   # null if not found
-
-coverage:
-  - dimension: "understand/data-flows"
-    status: "absent-required"
-    sources: []
-    regulatory: "HIPAA §164.308(a)(1)(ii)(A)"
-    required: null          # populated by document mode
-    confidence: high
-
-  - dimension: "secure/audit-logs"
-    status: "partial"
-    sources:
-      - path: "README.md"
-        lines: "45-60"
-        note: "mentions audit logging exists but no schema or retention policy"
-    regulatory: "HIPAA §164.312(b)"
-    required: null
-    confidence: high
-
-  - dimension: "comply/hipaa/baa-inventory"
-    status: "absent-required"
-    sources: []
-    regulatory: "HIPAA §164.308(b)(1)"
-    required: null
-    confidence: high
-
-requirements:               # populated after document mode interview
-  interview_completed_at: null   # ISO 8601 timestamp, null until interview complete
-  regime: []                     # confirmed regimes (e.g., ["hipaa", "onc"])
-  dimensions: {}                 # dimension path → true/false
-  human_review_required: []      # file paths requiring human sign-off
-
----
-```
+Key fields:
+- `generated_at`, `schema_version` — artifact metadata
+- `regime_detected` — one entry per regime (`hipaa`, `onc`, `fda_samd`) with `proposed`, `confidence`, `evidence`
+- `jurisdiction_detected` — `value` (`us`/`eu`/`us+eu`/`unclear`), `confidence`, `evidence`
+- `doc_root_detected` — detected documentation root path, or `null`
+- `coverage` — one entry per dimension: `dimension`, `status` (`covered`/`partial`/`conflict`/`absent`/`absent-required`), `sources`, `regulatory`, `required` (null until document mode), `confidence`
+- `requirements` — populated by document mode interview: `interview_completed_at`, `regime`, `dimensions`, `human_review_required`
 
 ---
 
 ## Resources
 
+- `references/artifact-schema.md`: field-by-field schema for `.health-docs/analysis.md` with coverage entry shape and requirements block
 - `references/doc-hierarchy.md`: canonical seven-dimension documentation tree with target file paths, audience notes, and minimum required files
 - `references/regime-signals.md`: jurisdiction, PHI, ONC, and FDA SaMD signal patterns for Pass 1 detection
 - `references/regulatory-mapping.md`: dimension → regulatory requirement mapping with classification (required / addressable / recommended), plus overlay notes

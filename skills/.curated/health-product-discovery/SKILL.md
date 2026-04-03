@@ -36,6 +36,7 @@ Use this order:
 2. Check the user prompt, provided materials, and repository evidence for confirming or conflicting market signals.
 3. Load `references/us-market-overlay.md` and/or `references/eu-market-overlay.md` only for the selected overlay set. Each overlay provides market-specific challenge prompts for explore mode, required content additions for document mode, and healthcare economics depth for both.
 4. If evidence is mixed, say so explicitly and avoid silently defaulting to US market assumptions.
+5. If jurisdiction is `unclear` after evidence review, ask the user to confirm before proceeding.
 
 ---
 
@@ -187,7 +188,7 @@ Use document when:
 
 ---
 
-## Outputs
+## Output Contract
 
 * Structured discovery output with incentive and adoption analysis (explore)
 * Strategic planning artifact with healthcare-specific sections (document), see `references/document-template.md`
