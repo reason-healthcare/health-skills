@@ -1,0 +1,4 @@
+interface:
+  display_name: "Healthcare Refactor Plan"
+  short_description: "Produce a scope-bounded healthcare refactor plan"
+  default_prompt: "Use $health-refactor to analyze a bounded area of a healthcare codebase and produce a prioritized refactor plan covering code quality, human factors, and jurisdiction-aware regulatory concerns. Provide a context mode: git range (e.g. HEAD~5..HEAD), file area (e.g. src/dashboard), or symbol (e.g. PatientService). Jurisdiction overlays (`us`, `eu`, or `us+eu`) are selected from evidence — do not assume a US default."

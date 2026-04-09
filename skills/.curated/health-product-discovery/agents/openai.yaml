@@ -1,0 +1,4 @@
+interface:
+  display_name: "Healthcare Discovery"
+  short_description: "Explore or document a healthcare product opportunity with US/EU overlays"
+  default_prompt: "Use $health-product-discovery in explore mode to clarify a healthcare product problem, or in document mode to produce a structured planning artifact. Select `us`, `eu`, or `us+eu` market overlays from evidence instead of assuming a US-default market."
